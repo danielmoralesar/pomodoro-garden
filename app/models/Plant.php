@@ -3,7 +3,7 @@
 include $_SERVER['DOCUMENT_ROOT'] . "/app/models/Task.php";
 
 class Plant{
-    function __construct(
+    public function __construct(
         private array $tasks,
         private string $type,
         private string $deadline,

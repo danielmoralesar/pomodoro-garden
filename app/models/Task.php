@@ -1,7 +1,7 @@
 <?php
 
 abstract class Task{
-    function __construct(
+    public function __construct(
         protected string $title,
         protected string $description,
         protected string $createdAt,

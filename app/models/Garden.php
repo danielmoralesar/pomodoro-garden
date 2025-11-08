@@ -4,7 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/app/models/Plant.php";
 
 
 class Garden{
-    function __construct(
+    public function __construct(
         private User $owner,
         private string $enviroment,
         private array $gardeners = [],

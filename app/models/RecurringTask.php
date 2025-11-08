@@ -4,7 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/app/models/Task.php";
 
 class RecurringTask extends Task
 {
-    function __construct(
+    public function __construct(
         private string $frecuency,
         private string $nextOccurrence,
         private array $history,
