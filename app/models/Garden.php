@@ -11,9 +11,11 @@ class Garden {
         private array $plants = []
     ){}
 
-    public function createPlant(){
-
+    public function newPlant($title, $description, $deadline){
+        return new HarvestPlant($title, $description, false, $_SERVER['DOCUMENT_ROOT'] . "/resources/assets/greenTomato.png", $deadline);
     }
+
+
 
     public function getTitle()
     {
