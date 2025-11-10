@@ -1,16 +1,13 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'] . "/app/models/Task.php";
-
-class Plant{
+abstract class Plant{
     public function __construct(
-        private array $tasks,
-        private string $type,
-        private string $deadline,
-        private int $growRate,
-        private string $healthStatus,
-        private string $urgencyLevel,
-        private int $healthPoints = 100,
-        private string $stage = "seed"
+        protected string $title,
+        protected string $description,
+        protected int $heathPoints,
+        protected string $status, 
+        protected string $species,
+        protected bool $taskCompleted,
+        protected string $instanceImage
     ){}
 }
