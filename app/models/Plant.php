@@ -10,4 +10,6 @@ abstract class Plant{
         protected bool $taskCompleted,
         protected string $instanceImage
     ){}
+
+    abstract public static function createPlant();
 }

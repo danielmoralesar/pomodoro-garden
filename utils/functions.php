@@ -1,0 +1,18 @@
+<?php
+/**
+ * printForHtml takes a string and return it formated for HTML
+ * @param mixed $toPrint the string to print
+ * @param mixed $tag the tag to use, by default, its a <p> tag
+ * @param mixed $atributes atributes to use, by default, its blank
+ * @param mixed $atributeValue atribute values to use, by default, its blank
+ * @return string the formated string ready to be use in html
+ */
+function printForHtml($toPrint, $tag = "p", $atributes = "", $atributeValue = "")
+{
+    if (str_word_count($atributes) == 0) {
+        return "<$tag>$toPrint</$tag>";
+    } else {
+        return "<$tag $atributes" . "=" . "'$atributeValue'" . ">$toPrint</$tag>";
+    }
+}
+

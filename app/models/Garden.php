@@ -1,6 +1,6 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
+
 include $_SERVER['DOCUMENT_ROOT'] . "/app/models/Plant.php";
 
 class Garden {
@@ -10,4 +10,21 @@ class Garden {
         private string $environment,
         private array $plants = []
     ){}
+
+    public function createPlant(){
+
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function __tostring(){
+        $plants = "";
+        foreach ($this->plants as $plant) {
+            $plants .= $plant->getTitle() . ", ";
+        }
+        return "{$this->title}, {$this->owner->getUserName()}, {$this->environment}, $plant";
+    }
 }

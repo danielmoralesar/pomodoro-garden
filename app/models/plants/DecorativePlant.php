@@ -17,4 +17,9 @@ final class DecorativePlant extends Plant{
             parent::__construct(
                 $title, $description, $heathPoints, $status, $species, $taskCompleted, $instanceImage);
         }
+
+    public static function createPlant()
+    {
+        
+    }
 }
