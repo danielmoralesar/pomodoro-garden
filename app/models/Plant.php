@@ -1,29 +1,36 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/HarvestPlant.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/FruitTree.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/DecorativePlant.php";
+
 abstract class Plant{
     public function __construct(
         protected string $title,
         protected string $description,
-        protected bool $taskCompleted,
         protected string $instanceImage,
-        protected int $healthPoints = 100,
-        protected string $status = "resting",
+        protected bool $taskCompleted = false,
+        protected int $healthPoints = 100
     ){}
+ 
+    /**
+     * Complete or Re-open a task, if the task is complete, set it true, else, set it false
+     * @param bool $bool
+     * @return void
+     */
+    public function completeOrReopenTask(bool $bool){
+        $this->taskCompleted = $bool;
+    }
 
+    abstract public function calculateHealthPoints();
 
-        /**
-         * Get the value of heathPoints
-         */ 
-        public function getHealthPoints()
-        {
-                return $this->healthPoints;
-        }
+    public function getHealthPoints()
+    {
+        return $this->healthPoints;
+    }
 
-        /**
-         * Get the value of title
-         */ 
-        public function getTitle()
-        {
-                return $this->title;
-        }
+    public function getTitle()
+    {
+        return $this->title;
+    }
 }

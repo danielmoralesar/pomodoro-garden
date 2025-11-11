@@ -30,3 +30,16 @@ function findSomethingByTitle(string $title, array $objects){
     }
     return false;
 }
+
+/**
+ * Formatea un array en una lista no ordenada
+ * @param array $arr
+ * @return string
+ */
+function printArray(array $arr){
+    $printableArr = "<ul>";
+    foreach ($arr as $value) {
+        $printableArr .= "<li>{$value->getTitle()}</li>";
+    }
+    return $printableArr . "</ul>";
+}

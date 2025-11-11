@@ -22,10 +22,7 @@ class User{
         if ($this->gardenExist($gardenTitle)){
             return false;
         } else {
-            array_push(
-            $this->gardens,
-            new Garden($gardenTitle, $this, $environment));
-
+            $this->gardens[] = new Garden($gardenTitle, $this, $environment);
             return true;
         }
     }
@@ -68,20 +65,45 @@ class User{
         }
     }
 
-    public static function countAllPlants(User $user){
-        
+   
+    public static function showAllUnattendedPlants(User ...$users){
+        $unattendedPlants = [];
+        foreach ($users as $user) {
+            foreach ($user->gardens as $garden) {
+                $unattendedPlants[] = [$user->userName => $garden->plants];
+            }
+        }
+        return $unattendedPlants;
     }
 
     public function __tostring(){
-        $gardens = "";
-        foreach ($this->gardens as $garden) {
-            $gardens .= $garden->getTitle() . ", ";
-        }
-        return "{$this->userName}, {$this->email}, " . $gardens;
+        return 
+            printForHtml("{$this->userName}") . 
+            printForHtml("{$this->email}") . 
+            printArray($this->gardens);
     }
 
     public function getUserName()
     {
         return $this->userName;
+    }
+
+    public function getGardens()
+    {
+        return $this->gardens;
+    }
+
+    public function setUserName($userName)
+    {
+            $this->userName = $userName;
+
+            return $this;
+    }
+
+    public function setGardens($gardens)
+    {
+            $this->gardens = $gardens;
+
+            return $this;
     }
 }

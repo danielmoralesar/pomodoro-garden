@@ -1,7 +1,7 @@
 <?php
 
-
-include $_SERVER['DOCUMENT_ROOT'] . "/app/models/Plant.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Plant.php";
 
 class Garden {
     public function __construct(
@@ -12,10 +12,14 @@ class Garden {
         private array $deadPlants = []
     ){}
 
+    /**
+     * Adds a plant to the garden, plants in a garden must have different names
+     * @param Plant $plant
+     * @return bool if there's already a plant with the same title, returs false, else returns true
+     */
     public function addPlant(Plant $plant): bool{
-        // recibe una planta ya creada y la mete en el array
         if (!in_array($plant, $this->plants)){
-            array_push($this->plants, $plant);
+            $this->plants[] = $plant;
             return true;
         } else {
             return false;
@@ -31,6 +35,10 @@ class Garden {
         return findSomethingByTitle($plantTitle, $this->plants);
     }
 
+    /**
+     * Look for unattended plants and takes them to the deadPlants array
+     * @return void
+     */
     public function findDeadPlants(): void{
         foreach ($this->plants as $plant) {
             if ($plant->getHealthPoints() <= 0){
@@ -40,6 +48,10 @@ class Garden {
         }
     }
 
+    /**
+     * Summary of clearDeadPlant
+     * @return void
+     */
     public function clearDeadPlant(): void{
         echo printForHtml("Se han encontrado " . count($this->deadPlants) . " plantas muerta, se procederá a limpiarlas del jardín");
         $this->deadPlants = [];
@@ -55,10 +67,15 @@ class Garden {
     }
 
     public function __tostring(): string{
-        $plants = "";
-        foreach ($this->plants as $plant) {
-            $plants .= $plant->getTitle() . ", ";
-        }
-        return "{$this->title}, {$this->owner->getUserName()}, {$this->environment}, $plant";
+        return
+            printForHtml(
+                "Jardín (Queaseres agrupados) titulado " . $this->title . " de " . $this->owner->getUserName() 
+            ) . 
+            printForHtml("Plantas vivas (Quehaceres): ") . printArray($this->plants);
+        // $plants = "";
+        // foreach ($this->plants as $plant) {
+        //     $plants .= $plant->getTitle() . ", ";
+        // }
+        // return "{$this->title}, {$this->owner->getUserName()}, {$this->environment}, $plant";
     }
 }

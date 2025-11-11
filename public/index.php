@@ -1,6 +1,6 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
-    include $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php"
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php"
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,13 +11,17 @@
 </head>
 <body>
     <?php
-        $user = new User("Gato", "password", "gato@pomodorogarden.com");
+        $user1 = new User("Gato", "password", "gato@pomodorogarden.com");
+        $user2 = new User("Perrito", "password", "perrito@pomodorogarden.com");
+        $user3 = new User("Pedro", "password", "pedro@pomodorogarden.com");
 
-        $user->createGarden("Tomates", "cozy");
+        var_dump ($user1->createGarden("Tomates", "cozy"));
+
+        var_dump($user1->getGardens()[0]->addPlant(new HarvestPlant("Práctica PHP", "Detalles en el aula virtual", $_SERVER['DOCUMENT_ROOT'] . "/resources/assets/greenTomato.png", strtotime("13 October 2025"))));
         
-        echo printForHtml($user);
+        echo printForHtml($user1);
 
-        echo printForHtml(var_dump($user->deleteGarden("apples")));
+        
     ?>
 </body>
 </html>
