@@ -6,8 +6,24 @@ abstract class Plant{
         protected string $description,
         protected bool $taskCompleted,
         protected string $instanceImage,
-        protected int $heathPoints = 100,
+        protected int $healthPoints = 100,
         protected string $status = "resting",
     ){}
 
+
+        /**
+         * Get the value of heathPoints
+         */ 
+        public function getHealthPoints()
+        {
+                return $this->healthPoints;
+        }
+
+        /**
+         * Get the value of title
+         */ 
+        public function getTitle()
+        {
+                return $this->title;
+        }
 }

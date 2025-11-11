@@ -16,3 +16,17 @@ function printForHtml($toPrint, $tag = "p", $atributes = "", $atributeValue = ""
     }
 }
 
+/**
+ * Finds an object in an array of objects, if not found, return false
+ * else return the object
+ * @param string $title
+ * @param array $objects
+ */
+function findSomethingByTitle(string $title, array $objects){
+    foreach ($objects as $object) {
+        if ($object->getTitle() == $title){
+            return $object;
+        }
+    }
+    return false;
+}

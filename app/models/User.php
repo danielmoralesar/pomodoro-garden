@@ -1,5 +1,6 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . "/app/models/Garden.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Garden.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
 class User{
     public function __construct(
         private string $userName,
@@ -13,11 +14,11 @@ class User{
      * it means that one user cannot have two gardens with the same name,
      * if a garden with the same title exist, return false, else create the garden and  
      * returns true true
-     * @param mixed $gardenTitle new gardens title
-     * @param mixed $environment environment for the new garden
+     * @param string $gardenTitle new gardens title
+     * @param string $environment environment for the new garden
      * @return bool
      */
-    public function createGarden($gardenTitle, $environment){
+    public function createGarden(string $gardenTitle, string $environment){
         if ($this->gardenExist($gardenTitle)){
             return false;
         } else {
@@ -31,23 +32,18 @@ class User{
     /**
      * Find a garden by its name, if doesn't exist, return false
      * else return the garden
-     * @param mixed $gardenTitle
+     * @param string $gardenTitle
      * @return Garden|bool
      */
-    public function findGarden($gardenTitle):Garden | bool{
-        foreach ($this->gardens as $garden) {
-            if ($gardenTitle == $garden->getTitle()){
-                return $garden;
-            }
-        }
-        return false;
+    public function findGarden(string $gardenTitle):Garden | bool{
+        return findSomethingByTitle( $gardenTitle, $this->gardens);
     }
     /**
      * Checks if garden exists by its name
-     * @param mixed $gardenTitle
+     * @param string $gardenTitle
      * @return bool
      */
-    public function gardenExist($gardenTitle):bool{
+    public function gardenExist(string $gardenTitle):bool{
         foreach ($this->gardens as $garden) {
             if ($gardenTitle == $garden->getTitle()){
                 return true;
@@ -58,10 +54,10 @@ class User{
     /**
      * Deletes a user's garden, if doesn't exist, returns false
      * if delete was sucesful, returns true
-     * @param mixed $gardenTitle
+     * @param string $gardenTitle
      * @return bool
      */
-    public function deleteGarden($gardenTitle){
+    public function deleteGarden(string $gardenTitle){
         $garden = $this->findGarden($gardenTitle);
         if ($garden){
             echo printForHtml("Eliminando jardín...");
