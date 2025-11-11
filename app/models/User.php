@@ -68,6 +68,10 @@ class User{
         }
     }
 
+    public static function countAllPlants(User $user){
+        
+    }
+
     public function __tostring(){
         $gardens = "";
         foreach ($this->gardens as $garden) {
