@@ -7,35 +7,6 @@ class User{
         private string $email,
         private array $gardens = []
     ){}
-    /**
-     * This function will be able to be used
-     * when the db will be ready
-     * @return void
-     */
-    public function changeUserInfo(){
-        // TODO
-    }
-
-    /**
-     * This function will be able to be used
-     * when the db will be ready
-     * @return void
-     */
-    public static function recoverPassword(){
-        // TODO
-    }
-
-    /**
-     * Delete a user
-     * @param mixed $user
-     * @return void
-     */
-    public static function deleteUser($user){
-        // TODO a way to run the following query 
-        // DELETE FROM users WHERE email={$user->email} AND userName={$user->userName};
-        unset($user);
-        echo printForHtml("Cuenta eliminada");
-    }
 
     /**
      * Create a new garden for the user, user must have unique title gardens,

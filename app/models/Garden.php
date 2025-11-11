@@ -12,9 +12,8 @@ class Garden {
     ){}
 
     public function newPlant($title, $description, $deadline){
-        return new HarvestPlant($title, $description, false, $_SERVER['DOCUMENT_ROOT'] . "/resources/assets/greenTomato.png", $deadline);
+        // recibe una planta ya creada y la mete en el array
     }
-
 
 
     public function getTitle()
