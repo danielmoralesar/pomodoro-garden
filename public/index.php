@@ -69,7 +69,10 @@
         <!-- TODO: incertar aquí el gráfico UML de GARDEN-->
         <p>Ahora que sabemos que es un jardín, procedemos a explicar los métodos que tiene disponible, empecemos con añadir plantas al Jardín con el método <code>addPlant()</code></p>
         <?php 
-            //TODO
+            var_dump($users1Garden->addPlant(new HarvestPlant("Práctica PHP", "Crear aplicación web con PHP", "path/img", time(), strtotime("12 November 2025"))));
+
+            // TODO check this
+            echo $user1->getGardens()[0];
         ?>
     </article>
 </body>
