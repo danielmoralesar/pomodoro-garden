@@ -10,7 +10,8 @@ abstract class Plant{
         protected string $description,
         protected string $instanceImage,
         protected bool $taskCompleted = false,
-        protected int $healthPoints = 100
+        protected int $healthPoints = 100,
+        protected int $plantedDay = time()
     ){}
  
     /**
@@ -22,6 +23,12 @@ abstract class Plant{
         $this->taskCompleted = $bool;
     }
 
+    /**
+     * De momento las plantas van a obtener puntos de salud si se completan
+     * las tareas, si no se completan, van a peder cada ves más puntos de salud
+     * si se dejan de lado, el cálculo se explica en cada uno de los objetos heredados
+     * @return void
+     */
     abstract public function calculateHealthPoints();
 
     public function getHealthPoints()

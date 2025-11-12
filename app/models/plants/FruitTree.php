@@ -11,8 +11,9 @@ final class FruitTree extends Plant {
         private array $history,
         bool $taskCompleted = false,  
         int $healthPoints = 100,
+        int $plantedDay = time()
         ){
-            parent::__construct($title, $description, $instanceImage, $taskCompleted, $healthPoints);
+            parent::__construct($title, $description, $instanceImage, $taskCompleted, $healthPoints, $plantedDay);
         }
     
     public function calculateHealthPoints(){
