@@ -9,7 +9,7 @@ class Garden {
         private User $owner,
         private string $environment,
         private array $plants = [],
-        private array $deadPlants = []
+        private array $witheredPlants = []
     ){}
 
     /**
@@ -36,13 +36,13 @@ class Garden {
     }
 
     /**
-     * Look for unattended plants and takes them to the deadPlants array
+     * Look for unattended plants and takes them to the witheredPlants array
      * @return void
      */
-    public function findDeadPlants(): void{
+    public function findwitheredPlants(): void{
         foreach ($this->plants as $plant) {
             if ($plant->getHealthPoints() <= 0){
-                array_push($this->deadPlants, $plant);
+                array_push($this->witheredPlants, $plant);
                 array_slice($this->plants, in_array($plant, $this->plants), 1);
             }
         }
@@ -53,8 +53,8 @@ class Garden {
      * @return void
      */
     public function clearDeadPlant(): void{
-        echo printForHtml("Se han encontrado " . count($this->deadPlants) . " plantas muerta, se procederá a limpiarlas del jardín");
-        $this->deadPlants = [];
+        echo printForHtml("Se han encontrado " . count($this->witheredPlants) . " plantas muerta, se procederá a limpiarlas del jardín");
+        $this->witheredPlants = [];
     }
 
     public function changeEnvironment($newEnvironment): void{
@@ -67,15 +67,17 @@ class Garden {
     }
 
     public function __tostring(): string{
+        $plants = printForHtml("Plantas del Jardín") . (count($this->plants) < 1 ? printForHtml(" no hay plantas en el jardín ") : printArray($this->plants));
+        $witheredPlants = printForHtml("Plantas marchitas: ") . (count($this->witheredPlants) < 1 ? printForHtml(" no hay plantas marchitas en el jardín ") : printArray($this->witheredPlants));
         return
-            printForHtml(
-                "Jardín (Queaseres agrupados) titulado " . $this->title . " de " . $this->owner->getUserName() 
-            ) . 
-            printForHtml("Plantas vivas (Quehaceres): ") . printArray($this->plants);
-        // $plants = "";
-        // foreach ($this->plants as $plant) {
-        //     $plants .= $plant->getTitle() . ", ";
-        // }
-        // return "{$this->title}, {$this->owner->getUserName()}, {$this->environment}, $plant";
+            printForHtml(printForHtml("Titulo del Jardín: {$this->title}; User: {$this->owner->getUserName()}; Environment(Fondo): {$this->environment}") . $plants . $witheredPlants, "div", "class", "object");
+    }
+
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
     }
 }

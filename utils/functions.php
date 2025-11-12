@@ -17,10 +17,10 @@ function printForHtml($toPrint, $tag = "p", $atributes = "", $atributeValue = ""
 }
 
 /**
- * Finds an object in an array of objects, if not found, return false
- * else return the object
+ * Verifica si en un array de objetos, existe un objeto con el título dado
  * @param string $title
  * @param array $objects
+ * @return bool
  */
 function findSomethingByTitle(string $title, array $objects){
     foreach ($objects as $object) {

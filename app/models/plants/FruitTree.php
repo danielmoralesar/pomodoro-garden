@@ -24,9 +24,11 @@ final class FruitTree extends Plant {
     }
     
     /**
-     * Suma o resta los puntos de salud dependiendo del estado de la tarea. Si la tarea ha sido completada, se sumarán 5 puntos de salud multiplicado por la cantidad de días que se ha cumplido la tarea, no se sumarán más puntos si la salud de la planta es igual o mayor a 100 puntos
+     * Suma o resta los puntos de salud dependiendo del estado de la tarea. Si la tarea ha sido completada, se sumarán 5 puntos de salud multiplicado por la cantidad de días que se ha cumplido la tarea, si el ciclo de tareas ha terminado, se recompensará adicionalmente con 20 puntos. 
      * 
-     * En caso de que la tarea aún no haya sido completada y haya pasado la fecha límite, se restarán 10 puntos por cada día que pase desde la fecha límite, es decir, si han pasado 2 días de la fecha límite, se restarán 20 puntos.
+     * No se sumarán más puntos si la salud de la planta es igual o mayor a 100 puntos
+     * 
+     * En caso de que la tarea aún no haya sido completada y además haya pasado la fecha límite, se restarán 10 puntos por cada día que pase desde la fecha límite, es decir, si han pasado 2 días de la fecha límite, se restarán 20 puntos.
      * 
      * En caso de que la tarea aún no haya sido completada, se restarán unicamente 10 puntos de salud.
      * 
@@ -35,7 +37,7 @@ final class FruitTree extends Plant {
      */
     final public function calculateHealthPoints(){
         if ($this->taskCompleted) {
-            $this->healthPoints += count($this->history) * 5;
+            $this->healthPoints += count($this->history) * 5 + $this->isCycleFinished ? 20 : 0 ;
             $this->healthPoints = $this->healthPoints > 100 ? 100 : $this->healthPoints;
         } else if (time() > $this->nextOcurrence){
             $this->healthPoints -= floor(($this->nextOcurrence - time()) / 86400) * -10;
@@ -52,6 +54,7 @@ final class FruitTree extends Plant {
             if($this->nextOcurrence > $this->finalOccurrence){
                 $this->isCycleFinished = true;
             }
+            $this->calculateHealthPoints();
         }
         parent::completeOrReopenTask($isCompleted);
     }

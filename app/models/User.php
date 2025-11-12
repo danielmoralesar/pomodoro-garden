@@ -10,13 +10,10 @@ class User{
     ){}
 
     /**
-     * Create a new garden for the user, user must have unique title gardens,
-     * it means that one user cannot have two gardens with the same name,
-     * if a garden with the same title exist, return false, else create the garden and  
-     * returns true true
-     * @param string $gardenTitle new gardens title
-     * @param string $environment environment for the new garden
-     * @return bool
+     * Crea un nuevo jardín para el user, todos los jardines de cada usuarie deben tener titulos distintos.
+     * @param string $gardenTitle nombre del nuevo jardín
+     * @param string $environment Path del tipo de ambiente que tendrá el jardín, los jardines podrán tener diferentes fondos que se irán creando, algún ejemplo de fondo puede ser un invernadero de cristal o una terraza en la cima de un edificio
+     * @return bool si se intenta crear un jardín con el mismo título de uno ya existente, se devolverá false, si se ha creado el jardín con éxito, se devolverá true
      */
     public function createGarden(string $gardenTitle, string $environment){
         if ($this->gardenExist($gardenTitle)){
@@ -27,13 +24,29 @@ class User{
         }
     }
     /**
-     * Find a garden by its name, if doesn't exist, return false
-     * else return the garden
+     * Verifica si el jardín existe por su nombre y lo devuelve
      * @param string $gardenTitle
      * @return Garden|bool
      */
     public function findGarden(string $gardenTitle):Garden | bool{
         return findSomethingByTitle( $gardenTitle, $this->gardens);
+    }
+    /**
+     * Cambia el título de un jardín, verifica primero si el jardín existe y además si el nuevo nombre está disponible, en caso de que no se cumplan alguna de las dos condiciones, se devolverá falso
+     * @param string $oldTitle 
+     * @param string $newTitle 
+     * @return bool
+     */
+    public function changeGardenTitle(string $oldTitle, string $newTitle){
+        if($this->gardenExist($oldTitle) && !$this->gardenExist($newTitle)){
+            foreach ($this->gardens as $garden) {
+                if ($garden->getTitle() == $oldTitle){
+                    $garden->setTitle($newTitle);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     /**
      * Checks if garden exists by its name
@@ -65,22 +78,25 @@ class User{
         }
     }
 
-   
-    public static function showAllUnattendedPlants(User ...$users){
+    /**
+     * Método estático que muestra todas las tareas pendientes de un usuario pasado por parámetro
+     * @param User $user
+     * @return array
+     */
+    public static function showAllUnattendedPlants(User $user){
         $unattendedPlants = [];
-        foreach ($users as $user) {
-            foreach ($user->gardens as $garden) {
-                $unattendedPlants[] = [$user->userName => $garden->plants];
+        foreach ($user->gardens as $garden) {
+            foreach ($garden->plants as $plant) {
+            !$plant->taskCompleted ? array_push($unattendedPlants, $plant) : "";
             }
         }
         return $unattendedPlants;
     }
 
     public function __tostring(){
+        $gardens = printForHtml("Jardines de {$this->userName}:"). (count($this->gardens) < 1 ? printForHtml("{$this->userName} no tiene jardines.") : printArray($this->gardens));
         return 
-            printForHtml("{$this->userName}") . 
-            printForHtml("{$this->email}") . 
-            printArray($this->gardens);
+            printForHtml(printForHtml("User: {$this->userName}; Email: {$this->email};") . $gardens, "div", "class", "object") ;
     }
 
     public function getUserName()
