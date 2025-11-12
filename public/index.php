@@ -18,8 +18,8 @@
         <p>De momento, por limitaciones de conocimiento, el reloj pomodoro no está disponible, así que experimentaremos con la app con valores hardcodeados aquí mismo</p>
     </article>
     <article>
-        <h2>Clase Usuario:</h2>
-        <p>Como el nombre lo indica, representa al usuario, el cual se compone de los siguentes parámetros:</p>
+        <h2>Clase User:</h2>
+        <p>Como el nombre lo indica, representa a le usuarie, el cual se compone de los siguentes parámetros:</p>
         <!-- TODO meter aquí el gráfico UML de USER-->
         <p>Vamos a crear un usuario y experimentar con este: </p>
         <?php 
@@ -61,6 +61,15 @@
         <?php 
             var_dump($user1->deleteGarden("Delete me"));
             echo $user1;
+        ?>
+    </article>
+    <article>
+        <h2>Clase Garden:</h2>
+        <p>Representa a un jardín, al cual nos referimos como un grupo de tareas y quehaceres que estarán representadas por distintas plantas. Un jardín se compone de los siguientes parámetros</p>
+        <!-- TODO: incertar aquí el gráfico UML de GARDEN-->
+        <p>Ahora que sabemos que es un jardín, procedemos a explicar los métodos que tiene disponible, empecemos con añadir plantas al Jardín con el método <code>addPlant()</code></p>
+        <?php 
+            //TODO
         ?>
     </article>
 </body>

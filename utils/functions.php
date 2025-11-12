@@ -17,7 +17,8 @@ function printForHtml($toPrint, $tag = "p", $atributes = "", $atributeValue = ""
 }
 
 /**
- * Verifica si en un array de objetos, existe un objeto con el título dado
+ * Verifica si en un array de objetos, existe un objeto con el título dado,
+ * Si existe el objeto, lo devuelve, sino, devuelve false
  * @param string $title
  * @param array $objects
  * @return bool

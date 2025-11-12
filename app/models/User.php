@@ -23,6 +23,7 @@ class User{
             return true;
         }
     }
+
     /**
      * Verifica si el jardín existe por su nombre y lo devuelve
      * @param string $gardenTitle
@@ -31,6 +32,7 @@ class User{
     public function findGarden(string $gardenTitle):Garden | bool{
         return findSomethingByTitle( $gardenTitle, $this->gardens);
     }
+    
     /**
      * Cambia el título de un jardín, verifica primero si el jardín existe y además si el nuevo nombre está disponible, en caso de que no se cumplan alguna de las dos condiciones, se devolverá falso
      * @param string $oldTitle 
@@ -49,7 +51,7 @@ class User{
         return false;
     }
     /**
-     * Checks if garden exists by its name
+     * Verifica si existe el jardín por su nombre
      * @param string $gardenTitle
      * @return bool
      */
@@ -61,9 +63,12 @@ class User{
         }
         return false;
     }
+    
+    
     /**
-     * Deletes a user's garden, if doesn't exist, returns false
-     * if delete was sucesful, returns true
+     * Elimina un jardín
+     * 
+     * Si la operación fue exitosa, devuelve true, sino, false
      * @param string $gardenTitle
      * @return bool
      */
