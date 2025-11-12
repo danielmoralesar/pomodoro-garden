@@ -17,7 +17,7 @@
 
         var_dump ($user1->createGarden("Tomates", "cozy"));
 
-        var_dump($user1->getGardens()[0]->addPlant(new HarvestPlant("Práctica PHP", "Detalles en el aula virtual", $_SERVER['DOCUMENT_ROOT'] . "/resources/assets/greenTomato.png", strtotime("13 October 2025"))));
+        var_dump($user1->getGardens()[0]->addPlant(new HarvestPlant("Práctica PHP", "Detalles en el aula virtual", $_SERVER['DOCUMENT_ROOT'] . "/resources/assets/greenTomato.png", time(), strtotime("+2 week"))));
         
         echo printForHtml($user1);
 

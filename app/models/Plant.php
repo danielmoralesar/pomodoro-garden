@@ -9,18 +9,14 @@ abstract class Plant{
         protected string $title,
         protected string $description,
         protected string $instanceImage,
+        protected int $plantedDay,
         protected bool $taskCompleted = false,
         protected int $healthPoints = 100,
-        protected int $plantedDay = time()
     ){}
  
-    /**
-     * Complete or Re-open a task, if the task is complete, set it true, else, set it false
-     * @param bool $bool
-     * @return void
-     */
-    public function completeOrReopenTask(bool $bool){
-        $this->taskCompleted = $bool;
+    
+    public function completeOrReopenTask(bool $isCompleted): void{
+        $this->taskCompleted = $isCompleted;
     }
 
     /**
