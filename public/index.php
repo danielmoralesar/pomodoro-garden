@@ -16,15 +16,15 @@
 <body>
     <article>
         <h1>Pomodoro Garden</h1>
-        <p>Pomodoro Garden será una aplicación web que gamifica la consecusión de tareas pendientes y hábitos del usuario. La idea es simple, veremos las tareas como plantas a las que hay que cuidar, el usuario será responsable de mantenerlas vivas mientras las realice, y podrá coleccionarlas en su gardín personal.</p>
+        <p>Pomodoro Garden será una aplicación web que gamifica la consecusión de tareas pendientes y hábitos del usuario. La idea es simple, veremos las tareas como plantas a las que hay que cuidar, el usuario será responsable de mantenerlas vivas mientras realice sus tareas, y podrá coleccionarlas en su gardín personal.</p>
         <p>El gráfico UML de la aplicación es el siguiente:</p>
-        <!-- TODO meter el gráfico UML de la app aquí -->
+        <img src="/resources/assets/uml-pomodoro-garden.svg" alt="UML de la web" id="uml">
         <p>De momento, por limitaciones de conocimiento, el reloj pomodoro no está disponible, así que experimentaremos con la app con valores hardcodeados aquí mismo</p>
     </article>
     <article>
         <h2>Clase User:</h2>
         <p>Como el nombre lo indica, representa a le usuarie, el cual se compone de los siguentes parámetros:</p>
-        <!-- TODO meter aquí el gráfico UML de USER-->
+        <img src="/resources/assets/userUml.svg" alt="UML de User" class="uml-components">
         <p>Vamos a crear un usuario y experimentar con este: </p>
         <?php 
             $user1 = new User("Gato","gato@pomodorogarden.com");
@@ -70,7 +70,7 @@
     <article>
         <h2>Clase Garden:</h2>
         <p>Representa a un jardín, al cual nos referimos como un grupo de tareas y quehaceres que estarán representadas por distintas plantas. Un jardín se compone de los siguientes parámetros</p>
-        <!-- TODO: incertar aquí el gráfico UML de GARDEN-->
+        <img src="/resources/assets/gardenUml.svg" alt="UML de Garden" class="uml-components">
         <p>Un ejemplo de jardín puede ser este:</p>
         <?php
             echo $exampleGarden;
@@ -90,37 +90,27 @@
         ?>
         <p>ahora, al igual que con los métodos para buscar , cambiar nombre, elimiar, etc estos aplican igual a las plantas, veamos esos métodos</p>
         
-        <div class="flex-container">
-            <div class="flex-contend">
                 <p><code>findPlant()</code></p>
                 <?php
                     $phpPlant = $exampleGarden->findPlant("Práctica PHP");
 
                     echo $phpPlant;
                 ?>
-            </div>
-            <div class="flex-contend">
                 <p><code>plantExist()</code></p>
                 <p>¿Existe la planta "Práctica PHP"?</p>
                 <?php
                     echo printBool($exampleGarden->plantExist("Práctica PHP"));
                 ?>
-            </div>
-            <div class="flex-contend">
                 <p><code>changePlantTitle()</code></p>
                 <?php
                     echo $phpPlant;
                     echo printBool($exampleGarden->changePlantTitle("Práctica PHP", "PHP"));
                     echo $phpPlant;
                 ?>
-            </div>
-            <div class="flex-contend">
                 <p><code>deletePlant()</code></p>
                 <?php
                     echo printBool($exampleGarden->deletePlant("PHP"));
                 ?>
-            </div>
-        </div>
 
         <p>Además de eso también tenemos métodos para encontrar y eliminar plantas que se hayan marchitado, por marchitado nos referimos a aquellas que han perdido todos sus puntos de salud, por ende ya no se puede recuperar la planta, más adelante explicaremos como se pierden los puntos de salud por cada tipo de planta, por ahora, crearemos 3 plantas con 0 puntos de salud</p>
 
@@ -185,13 +175,14 @@
     <article>
         <h2>Clase abstracta Plant</h2>
         <p>Es la base de las tareas que van a realizarse</p>
-        <!--TODO incertar UML de Plant-->
+       <img src="/resources/assets/plantUml.svg" alt="UML de Plant" class="uml-components">
         <p>De esta clase se heredarán tres objetos:</p>
         <ul>
             <li>HarvestPlant: para tareas que solo se deben hacer una vez</li>
             <li>FruitTree: para aquellas tareas que se deben ir haciendo durante un cierto tiempo</li>
             <li>DecorativePlant: para hacer un seguimiento de hábitos</li>
         </ul>
+        <img src="/resources/assets/inheritancePlantsUml.svg" alt="UML de Plant" class="uml-components">
         <p>Las tres plantas tienen los mismos métodos, pero interactuan diferente entre cada tipo de planta, vamos a crear estas tres tareas: </p>
         <?php 
             $harvestExample = new HarvestPlant(
@@ -227,8 +218,6 @@
             ?>
         </div>
         <p>Y ahora que tenemos todos los objetos, vamos a explorar como interactuan los métodos entre ellos</p>
-        <div class="flex-container">
-            <div class="flex-contend">
                 <p><code>completeOrReopenTask()</code> para abrir de nuevo o cerrar las tareas, tiene efectos diferentes en cada tipo de planta</p>
                 <?php 
                     $harvestExample->completeOrReopenTask(true);
@@ -239,8 +228,6 @@
                     echo $decorativeExample;
                 ?>
                 <p>Podemos apreciar que se han actualizado varios valores en los objetos de FruitTree y DecorativePlant</p>
-            </div>
-            <div class="flex-contend">
                 <p><code>calculateHealthPoints()</code> para realizar el calculo de la salud de las plantas, además esta función actualiza otros valores como la racha en DecorativePlant</p>
                 <p>Conste que este método ya se activa de por sí, si se completa la tarea, pero solo se debe accionar una vez al día por planta, pero por motivos de demostraciones, vamos a ejecutarlo de nuevo</p>
                 <?php 
