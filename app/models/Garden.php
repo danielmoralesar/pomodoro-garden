@@ -71,13 +71,17 @@ class Garden {
      * Busca plantas marchitas (tareas que se le han pasado la fecha límite)
      * @return void
      */
-    public function findwitheredPlants(): void{
+    public function findWitheredPlants(): void{
+        $alivePlants = [];
         foreach ($this->plants as $plant) {
             if ($plant->getHealthPoints() <= 0){
                 array_push($this->witheredPlants, $plant);
-                array_slice($this->plants, in_array($plant, $this->plants), 1);
+            } else {
+                array_push($alivePlants, $plant);
             }
         }
+        
+        $this->plants = $alivePlants;
     }
 
     /**
@@ -102,8 +106,8 @@ class Garden {
      * Elimina todas las plantas marchitas
      * @return void
      */
-    public function clearDeadPlant(): void{
-        echo printForHtml("Se han encontrado " . count($this->witheredPlants) . " plantas muerta, se procederá a limpiarlas del jardín");
+    public function clearWitheredPlants(): void{
+        echo printForHtml("Se ha(n) encontrado " . count($this->witheredPlants) . " plantas muerta(s), se procederá a limpiarlas del jardín");
         $this->witheredPlants = [];
     }
 
@@ -117,10 +121,14 @@ class Garden {
     }
 
     public function __tostring(): string{
-        $plants = printForHtml("Plantas del Jardín") . (count($this->plants) < 1 ? printForHtml(" no hay plantas en el jardín ") : printObjectArray($this->plants));
-        $witheredPlants = printForHtml("Plantas marchitas: ") . (count($this->witheredPlants) < 1 ? printForHtml(" no hay plantas marchitas en el jardín ") : printObjectArray($this->witheredPlants));
-        return
-            printForHtml(printForHtml("Titulo del Jardín: {$this->title}; User: {$this->owner->getUserName()}; Environment(Fondo): {$this->environment}") . $plants . $witheredPlants, "div", "class", "object");
+        return printForHtml(
+            printForHtml("Jardín titulado: {$this->title}", "h4") . "<ul>" .
+            printForHtml("Propiedad de {$this->owner->getUserName()}", "li") .
+            printForHtml("Plantas del Jardín:", "li") . (count($this->plants) < 1 ? printForHtml(printForHtml(" no hay plantas en el jardín ", "li"), "ul") : printObjectArray($this->plants)) .
+            printForHtml("Plantas marchitas:", "li") . (count($this->witheredPlants) < 1 ? printForHtml(printForHtml(" no hay plantas marchitas en el jardín ", "li"), "ul") : printObjectArray($this->witheredPlants)) .
+            "</ul>" .
+            printForHtml("<img src='{$this->environment}' alt='{$this->title}' class='environmet-background'>", "div", "class", "img-container"), 
+            "div", "class", "object");
     }
 
 

@@ -10,7 +10,11 @@ abstract class Plant{
         protected int $healthPoints = 100,
     ){}
  
-    
+    /**
+     * Cerrar o volver a abrir una tarea
+     * @param bool $isCompleted true para cerrar la tarea, false para abrirla
+     * @return void
+     */
     public function completeOrReopenTask(bool $isCompleted): void{
         $this->taskCompleted = $isCompleted;
     }
@@ -41,7 +45,8 @@ abstract class Plant{
     }
 
     public function __tostring(){
-        return "" . printForHtml("Titulo de la planta: {$this->title}", "h4") . 
+        return 
+        printForHtml("Título de la planta: {$this->title}", "h4") . 
         printForHtml("<img src='{$this->instanceImage}' alt='{$this->title}' class='plant-img'>", "div", "class", "img-container") . " <ul>" . 
         printForHtml(" Descripción: {$this->description}", "li"). 
         printForHtml("PS: {$this->healthPoints}", "li") . 

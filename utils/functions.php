@@ -62,6 +62,19 @@ function printSimpleArray(array $arr){
 }
 
 /**
+ * Formatea un array de fechas en formato Unix a formato día-mes-año
+ * @param array $arr
+ * @return string
+ */
+function printDatesArray(array $arr){
+    $printableArr = "<ul>";
+    foreach ($arr as $value) {
+        $printableArr .= printForHtml(date("d-m-Y", $value), "li");
+    }
+    return $printableArr . "</ul>";
+}
+
+/**
  * Muestra por pantalla el valor de un boolean
  * @param bool $bool
  * @return string

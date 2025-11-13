@@ -1,3 +1,18 @@
-*{
-    margin: auto;
+body {
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image: radial-gradient(#BC6C25 0.5px, #fefae069 0.5px);
+    background-size: 10px 10px;
 }
+
+article {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: #FEFAE0;
+}
+
+img {
+    height: 100px;
+}
+
