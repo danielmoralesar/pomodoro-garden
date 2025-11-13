@@ -84,7 +84,7 @@
 
             echo printBool($repeatedPlant);
         ?>
-        <p>ahora, al igual que con los métodos para buscar y cambiar nombre, estos aplican igual a las plantas, veamos esos métodos</p>
+        <p>ahora, al igual que con los métodos para buscar , cambiar nombre, elimiar, etc estos aplican igual a las plantas, veamos esos métodos</p>
         
         <div class="flex-container">
             <div class="flex-contend">
@@ -117,6 +117,7 @@
                 ?>
             </div>
         </div>
+        <p>Además de eso también tenemos métodos para encontrar y eliminar plantas que se hayan marchitado, por marchitado nos referimos a aquellas que han perdido todos sus puntos de salud, por ende ya no se puede recuperar la planta, más adelante explicaremos como se pierden los puntos de salud</p>
     </article>
 </body>
 </html>
