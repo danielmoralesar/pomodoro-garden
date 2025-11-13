@@ -74,7 +74,7 @@ class Garden {
     public function findWitheredPlants(): void{
         $alivePlants = [];
         foreach ($this->plants as $plant) {
-            if ($plant->getHealthPoints() <= 0){
+            if ($plant->getPlantState() == PlantState::withered){
                 array_push($this->witheredPlants, $plant);
             } else {
                 array_push($alivePlants, $plant);

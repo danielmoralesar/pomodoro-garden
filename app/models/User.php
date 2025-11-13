@@ -95,7 +95,7 @@ class User{
             $unattendedPlants .= "<li>" . $garden->getTitle() . "<ul>";
             foreach ($garden->getPlants() as $plant) {
                 if(!$plant->getTaskCompleted()) {
-                    $unattendedPlants .= printForHtml("Titulo: " . $plant->getTitle() . " - PS: " . $plant->getHealthPoints(), "li");
+                    $unattendedPlants .= printForHtml("Titulo: " . $plant->getTitle() . " - Estado: " . $plant->getPlantState()->name, "li");
                 }
             }
             $unattendedPlants .= "</ul>";

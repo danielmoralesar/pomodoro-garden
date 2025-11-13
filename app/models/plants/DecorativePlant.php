@@ -14,6 +14,7 @@ final class DecorativePlant extends Plant{
         private int $longestStreak = 0,
         private int $lastTimeCompleted = 0,
         PlantState $plantState = PlantState::seed,
+        PlantState $previousState = PlantState::initial,
         bool $taskCompleted = false, 
         int $healthPoints = 100, 
         ){
@@ -23,6 +24,7 @@ final class DecorativePlant extends Plant{
             $instanceImage, 
             $plantedDay, 
             $plantState,
+            $previousState,
             $taskCompleted, 
             $healthPoints);
     }
@@ -73,7 +75,7 @@ final class DecorativePlant extends Plant{
         return printForHtml(parent::__tostring() .
             printForHtml("Planta de tipo: decorativa (para crear hábitos)", "li") .
             printForHtml("Frecuencia del hábito: cada " . date("d", $this->frecuency) . " días", "li") . 
-            printForHtml("Racha actual: " . $streak, "li") . 
+            printForHtml("Racha actual: $streak", "li") . 
             printForHtml("Récord de racha: " . $record, "li") . 
             printForHtml("Última vez que se ha completado el hábito: " . $lastTimeCompleted, "li")
             . "</ul>", "div", "class","object");

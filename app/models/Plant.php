@@ -9,6 +9,7 @@ abstract class Plant{
         protected string $instanceImage,
         protected int $plantedDay,
         protected PlantState $plantState = PlantState::seed,
+        protected PlantState $previousState = PlantState::initial,
         protected bool $taskCompleted = false,
         protected int $healthPoints = 100,
     ){}
@@ -23,12 +24,29 @@ abstract class Plant{
     }
 
     public function checkPlantState() {
-        #TODO
+        if ($this->healthPoints < 99 && $this->healthPoints > 0 && $this->plantState != PlantState::withering) {
+            $this->previousState = $this->plantState;
+            $this->plantState = PlantState::withering;
+        } else if ($this->healthPoints <= 0){
+            $this->previousState = $this->plantState;
+            $this->plantState = PlantState::withered;
+        } else {
+            if ($this->healthPoints < 200 && $this->healthPoints > 100 && $this->plantState < 2) {
+                $this->previousState = $this->plantState;
+                $this->plantState = PlantState::sprout;
+            } else if ($this->healthPoints < 300 && $this->healthPoints > 200 && $this->plantState < 3){
+                $this->previousState = $this->plantState;
+                $this->plantState = PlantState::seedling;
+            } else if ($this->healthPoints < 400 && $this->healthPoints > 300 && $this->plantState < 4){
+                $this->previousState = $this->plantState;
+                $this->plantState = PlantState::flowering;
+            }
+        }
     }
 
     /**
      * De momento las plantas van a obtener puntos de salud si se completan
-     * las tareas, si no se completan, van a peder cada ves más puntos de salud
+     * las tareas, si no se completan, van a perder cada ves más puntos de salud
      * si se dejan de lado, el cálculo se explica en cada uno de los objetos heredados
      * @return void
      */
@@ -63,6 +81,14 @@ abstract class Plant{
 
     public function getTaskCompleted()
     {
-            return $this->taskCompleted;
+        return $this->taskCompleted;
     }
+
+        /**
+         * Get the value of plantState
+         */ 
+        public function getPlantState()
+        {
+                return $this->plantState;
+        }
 }

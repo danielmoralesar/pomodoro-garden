@@ -10,7 +10,8 @@ final class HarvestPlant extends Plant{
         string $instanceImage,
         int $plantedDay, 
         private int $deadLine,
-        PlantState $plantState = PlantState::seed, 
+        PlantState $plantState = PlantState::seed,
+        PlantState $previousState = PlantState::initial, 
         bool $taskCompleted = false, 
         int $healthPoints = 100, 
         ){
@@ -20,6 +21,7 @@ final class HarvestPlant extends Plant{
             $instanceImage, 
             $plantedDay, 
             $plantState,
+            $previousState,
             $taskCompleted, 
             $healthPoints);
     }
