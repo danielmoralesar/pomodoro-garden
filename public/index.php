@@ -254,5 +254,12 @@
             </div>
         </div>
     </article>
+    <article>
+        <h2>Método estático: <code>showAllUnattendedPlants()</code></h2>
+        <p>Este método muestra todas las tareas pendientes de todos los jardines de un usuario</p>
+        <?php
+            echo User::showAllUnattendedPlants($user1);
+        ?>
+    </article>
 </body>
 </html>

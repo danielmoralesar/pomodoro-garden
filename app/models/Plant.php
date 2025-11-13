@@ -54,6 +54,8 @@ abstract class Plant{
         printForHtml("¿Completada?: " . ($this->taskCompleted ?"si" : "no"), "li");
     }
 
-        
-    
+    public function getTaskCompleted()
+    {
+            return $this->taskCompleted;
+    }
 }

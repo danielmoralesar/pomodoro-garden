@@ -84,17 +84,23 @@ class User{
     }
 
     /**
-     * Método estático que muestra todas las tareas pendientes de un usuario pasado por parámetro
+     * Método estático que muestra todas las tareas pendientes de un usuarie pasado por parámetro
      * @param User $user
-     * @return array
+     * @return string
      */
     public static function showAllUnattendedPlants(User $user){
-        $unattendedPlants = [];
-        foreach ($user->gardens as $garden) {
-            foreach ($garden->plants as $plant) {
-            !$plant->taskCompleted ? array_push($unattendedPlants, $plant) : "";
+
+        $unattendedPlants = "<ul>";
+        foreach ($user->getGardens() as $garden){
+            $unattendedPlants .= "<li>" . $garden->getTitle() . "<ul>";
+            foreach ($garden->getPlants() as $plant) {
+                if(!$plant->getTaskCompleted()) {
+                    $unattendedPlants .= printForHtml("Titulo: " . $plant->getTitle() . " - PS: " . $plant->getHealthPoints(), "li");
+                }
             }
+            $unattendedPlants .= "</ul>";
         }
+        
         return $unattendedPlants;
     }
 
@@ -116,15 +122,15 @@ class User{
 
     public function setUserName($userName)
     {
-            $this->userName = $userName;
+        $this->userName = $userName;
 
-            return $this;
+        return $this;
     }
 
     public function setGardens($gardens)
     {
-            $this->gardens = $gardens;
+        $this->gardens = $gardens;
 
-            return $this;
+        return $this;
     }
 }

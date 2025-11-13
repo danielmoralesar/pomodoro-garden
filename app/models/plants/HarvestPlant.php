@@ -46,6 +46,6 @@ final class HarvestPlant extends Plant{
     public function __tostring(){
         return printForHtml(parent::__tostring() . 
             printForHtml("Planta de tipo: cosechable (tareas que solo se deben hacer una vez)", "li") . 
-            printForHtml("Fecha límite: " . date("d-m-Y", $this->deadLine), "li") . "</ul>", "div", "object");
+            printForHtml("Fecha límite: " . date("d-m-Y", $this->deadLine), "li") . "</ul>", "div", "class", "object");
     }
 }

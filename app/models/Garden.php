@@ -125,7 +125,15 @@ class Garden {
             printForHtml("Jardín titulado: {$this->title}", "h4") . "<ul>" .
             printForHtml("Propiedad de {$this->owner->getUserName()}", "li") .
             printForHtml("Plantas del Jardín:", "li") . (count($this->plants) < 1 ? printForHtml(printForHtml(" no hay plantas en el jardín ", "li"), "ul") : printObjectArray($this->plants)) .
-            printForHtml("Plantas marchitas:", "li") . (count($this->witheredPlants) < 1 ? printForHtml(printForHtml(" no hay plantas marchitas en el jardín ", "li"), "ul") : printObjectArray($this->witheredPlants)) .
+            printForHtml(
+                "Plantas marchitas:", "li") . 
+                (count($this->witheredPlants) < 1 ? 
+                printForHtml(
+                    printForHtml(
+                        "No hay plantas marchitas en el jardín", 
+                        "li"), 
+                    "ul") : 
+                printObjectArray($this->witheredPlants)) .
             "</ul>" .
             printForHtml("<img src='{$this->environment}' alt='{$this->title}' class='environmet-background'>", "div", "class", "img-container"), 
             "div", "class", "object");
@@ -137,5 +145,10 @@ class Garden {
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getPlants()
+    {
+        return $this->plants;
     }
 }
