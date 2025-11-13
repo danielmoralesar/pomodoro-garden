@@ -1,11 +1,11 @@
 <?php
 /**
- * printForHtml takes a string and return it formated for HTML
- * @param mixed $toPrint the string to print
- * @param mixed $tag the tag to use, by default, its a <p> tag
- * @param mixed $atributes atributes to use, by default, its blank
- * @param mixed $atributeValue atribute values to use, by default, its blank
- * @return string the formated string ready to be use in html
+ * Obtiene un array y lo devuelve formateado para HTML
+ * @param mixed $toPrint el String a formatear
+ * @param mixed $tag la etiqueta a usar, por defecto es una de párrafo
+ * @param mixed $atributes atributos a usar, si no se necesita ninguno, dejar vacio
+ * @param mixed $atributeValue valores de atributos a usar, si no se necesita ninguno, dejar vacio
+ * @return string
  */
 function printForHtml($toPrint, $tag = "p", $atributes = "", $atributeValue = "")
 {
@@ -23,9 +23,10 @@ function printForHtml($toPrint, $tag = "p", $atributes = "", $atributeValue = ""
  * @param array $objects
  * @return bool
  */
-function findSomethingByTitle(string $title, array $objects){
+function findSomethingByTitle(string $title, array $objects)
+{
     foreach ($objects as $object) {
-        if ($object->getTitle() == $title){
+        if ($object->getTitle() == $title) {
             return $object;
         }
     }
@@ -33,14 +34,38 @@ function findSomethingByTitle(string $title, array $objects){
 }
 
 /**
- * Formatea un array en una lista no ordenada
+ * Formatea un array con los títulos de un objeto en una lista no ordenada
  * @param array $arr
  * @return string
  */
-function printArray(array $arr){
+function printObjectArray(array $arr)
+{
     $printableArr = "<ul>";
     foreach ($arr as $value) {
-        $printableArr .= "<li>{$value->getTitle()}</li>";
+        $printableArr .= printForHtml($value->getTitle(), "li");
     }
     return $printableArr . "</ul>";
+}
+
+/**
+ * Formatea un array de valores simples en una lista no ordenada
+ * Warning: no funciona con objetos, para eso se debe usar printObjectArray()
+ * @param array $arr
+ * @return string
+ */
+function printSimpleArray(array $arr){
+    $printableArr = "<ul>";
+    foreach ($arr as $value) {
+        $printableArr .= printForHtml($value, "li");
+    }
+    return $printableArr . "</ul>";
+}
+
+/**
+ * Muestra por pantalla el valor de un boolean
+ * @param bool $bool
+ * @return string
+ */
+function printBool(bool $bool){
+    return printForHtml($bool ? "True" : "False");
 }

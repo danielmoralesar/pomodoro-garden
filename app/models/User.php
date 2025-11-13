@@ -50,6 +50,7 @@ class User{
         }
         return false;
     }
+    
     /**
      * Verifica si existe el jardín por su nombre
      * @param string $gardenTitle
@@ -99,7 +100,7 @@ class User{
     }
 
     public function __tostring(){
-        $gardens = printForHtml("Jardines de {$this->userName}:"). (count($this->gardens) < 1 ? printForHtml("{$this->userName} no tiene jardines.") : printArray($this->gardens));
+        $gardens = printForHtml("Jardines de {$this->userName}:"). (count($this->gardens) < 1 ? printForHtml("{$this->userName} no tiene jardines.") : printObjectArray($this->gardens));
         return 
             printForHtml(printForHtml("User: {$this->userName}; Email: {$this->email};") . $gardens, "div", "class", "object") ;
     }

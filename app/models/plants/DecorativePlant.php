@@ -1,5 +1,7 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Plant.php";
+
 final class DecorativePlant extends Plant{
     public function __construct(
         string $title, 

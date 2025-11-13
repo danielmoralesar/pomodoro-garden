@@ -1,5 +1,7 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Plant.php";
+
 final class HarvestPlant extends Plant{
     
     public function __construct(
@@ -39,5 +41,11 @@ final class HarvestPlant extends Plant{
         } else {
             $this->healthPoints -= 5;
         }
+    }
+
+    public function __tostring(){
+        return parent::__tostring() . 
+            printForHtml("Planta de tipo: cosechable (tareas que solo se deben hacer una vez)", "li") . 
+            printForHtml("Fecha límite: " . date("d-m-Y", $this->deadLine), "li") . "</ul>";
     }
 }

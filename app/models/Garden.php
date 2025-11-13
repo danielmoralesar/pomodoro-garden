@@ -27,6 +27,24 @@ class Garden {
     }
 
     /**
+     * Cambia el título de un jardín, verifica primero si el jardín existe y además si el nuevo nombre está disponible, en caso de que no se cumplan alguna de las dos condiciones, se devolverá falso
+     * @param string $oldTitle 
+     * @param string $newTitle 
+     * @return bool
+     */
+    public function changePlantTitle(string $oldTitle, string $newTitle){
+        if($this->findPlant($oldTitle) && !$this->findPlant($newTitle)){
+            foreach ($this->plants as $plant) {
+                if ($plant->getTitle() == $oldTitle){
+                    $plant->setTitle($newTitle);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Search for a plant in the garden
      * @param string $plantTitle the plant title
      * @return Plant|bool if exists, returns the plant, else, returns false
@@ -67,8 +85,8 @@ class Garden {
     }
 
     public function __tostring(): string{
-        $plants = printForHtml("Plantas del Jardín") . (count($this->plants) < 1 ? printForHtml(" no hay plantas en el jardín ") : printArray($this->plants));
-        $witheredPlants = printForHtml("Plantas marchitas: ") . (count($this->witheredPlants) < 1 ? printForHtml(" no hay plantas marchitas en el jardín ") : printArray($this->witheredPlants));
+        $plants = printForHtml("Plantas del Jardín") . (count($this->plants) < 1 ? printForHtml(" no hay plantas en el jardín ") : printObjectArray($this->plants));
+        $witheredPlants = printForHtml("Plantas marchitas: ") . (count($this->witheredPlants) < 1 ? printForHtml(" no hay plantas marchitas en el jardín ") : printObjectArray($this->witheredPlants));
         return
             printForHtml(printForHtml("Titulo del Jardín: {$this->title}; User: {$this->owner->getUserName()}; Environment(Fondo): {$this->environment}") . $plants . $witheredPlants, "div", "class", "object");
     }

@@ -1,6 +1,9 @@
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php"
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/HarvestPlant.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/FruitTree.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/DecorativePlant.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,7 +32,7 @@
         ?>
         <p>Ahora que el usuario se ha creado, vamos a crearle un jardín con el método <code>createGarden()</code> se le pasarán como parámetros, el nombre del jardín, y la Path del ambiente del jardín</p>
         <?php 
-            var_dump($user1->createGarden("TO-DO list", "path"));
+            echo printBool($user1->createGarden("TO-DO list", "path"));
         ?>
         <p>Hemos recibido un true como respuesta, eso significa que el jardín se ha creado con éxito.</p>
         <?php
@@ -37,15 +40,15 @@
         ?>
         <p>Pero, ¿qué pasaría si creamos de nuevo otro jardín con el mísmo título?</p>
         <?php 
-            var_dump($user1->createGarden("TO-DO list", "path"));
+            echo printBool($user1->createGarden("TO-DO list", "path"));
         ?>
         <p>Recibiremos un false, como se puede ver, no será posible tener jardines con los mísmos títulos, ya que identificaremos los jardines mediante estos, cuando tengamos la base de datos, estos serán la clave primaria. Podemos realizar busquedas para ver si existe el jardín antes de crearlo con el siguiente método, <code>gardenExist()</code></p>
         <?php 
-            var_dump($user1->gardenExist("TO-DO list"));
+            echo printBool($user1->gardenExist("TO-DO list"));
         ?>
         <p>¿Y si queremos cambiarle el nombre al jardín? Podemos hacerlo con la función <code>changeGardenTitle()</code></p>
         <?php 
-            var_dump($user1->changeGardenTitle("TO-DO list", "Pomodoro Project"));
+            echo printBool($user1->changeGardenTitle("TO-DO list", "Pomodoro Project"));
             echo $user1;
         ?>
         <p>Listo, dejaremos creado los dos jardines para posteriores pruebas</p>
@@ -59,7 +62,7 @@
         ?>
         <p>Ahora, digamos que un usuarie quiere eliminar un jardin, para eso tenemos el método <code>deleteGarden()</code>, al igual que los métodos anteriores devuelve true o false dependiendo si se logró eliminar el jardín</p>
         <?php 
-            var_dump($user1->deleteGarden("Delete me"));
+            echo printBool($user1->deleteGarden("Delete me"));
             echo $user1;
         ?>
     </article>
@@ -67,13 +70,42 @@
         <h2>Clase Garden:</h2>
         <p>Representa a un jardín, al cual nos referimos como un grupo de tareas y quehaceres que estarán representadas por distintas plantas. Un jardín se compone de los siguientes parámetros</p>
         <!-- TODO: incertar aquí el gráfico UML de GARDEN-->
-        <p>Ahora que sabemos que es un jardín, procedemos a explicar los métodos que tiene disponible, empecemos con añadir plantas al Jardín con el método <code>addPlant()</code></p>
-        <?php 
-            var_dump($users1Garden->addPlant(new HarvestPlant("Práctica PHP", "Crear aplicación web con PHP", "path/img", time(), strtotime("12 November 2025"))));
+        <p>Ahora que sabemos que es un jardín, procedemos a explicar los métodos que tiene disponible, empecemos con añadir plantas al Jardín con el método <code>addPlant()</code> En este caso, vamos a usar el primer jardín del usuario Gato, y vamos a darle quehaceres</p>
+        <?php
+            // FIX THISSSS 
+            $phpPlant = new HarvestPlant("Práctica PHP", "Crear aplicación web con PHP", $_SERVER['DOCUMENT_ROOT'] . "/public/css/images/silencePrincess.jpg", time(), strtotime("12 November 2025"));
+            $bool = $users1Garden->addPlant($phpPlant);
 
-            // TODO check this
-            echo $user1->getGardens()[0];
+            echo $bool;
+            echo $phpPlant;
         ?>
+        <p>¡Listo!, debemos tomar en cuenta además que no pueden existir dos plantas con el mismo nombre dentro de un mismo jardín</p>
+        <?php
+            $repeatedPlant = $users1Garden->addPlant(new HarvestPlant("Práctica PHP", "Crear aplicación web con PHP", $_SERVER['DOCUMENT_ROOT'] . "/public/resources/assets/silencePrincess.jpg", time(), strtotime("12 November 2025")));
+
+            echo printBool($repeatedPlant);
+        ?>
+        <p>ahora, al igual que con los métodos para buscar, cambiar nombre, estos aplican igual a las plantas, veamos esos métodos</p>
+        
+        <div class="flexContainer">
+            <div>
+                <p><code>findPlant()</code></p>
+                <?php
+                    $phpPlant = $users1Garden->findPlant("Práctica PHP");
+
+                    echo $phpPlant;
+                ?>
+            </div>
+        </div>
+        <div class="flexContainer">
+            <div>
+                <p><code>changePlantTitle()</code></p>
+                <?php
+                    $phpPlant = $users1Garden->changePlantTitle("Práctica PHP", "PHP");
+                    echo $phpPlant;
+                ?>
+            </div>
+        </div>
     </article>
 </body>
 </html>

@@ -1,9 +1,5 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/HarvestPlant.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/FruitTree.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/DecorativePlant.php";
-
 abstract class Plant{
     public function __construct(
         protected string $title,
@@ -35,5 +31,22 @@ abstract class Plant{
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function __tostring(){
+        return "" . printForHtml("Titulo de la planta: {$this->title}", "h4") . 
+        "<img src='{$this->instanceImage}' alt='{$this->title}' class='plant-img'> <ul>" . 
+        printForHtml(" Descripción: {$this->description}", "li"). 
+        printForHtml("PS: {$this->healthPoints}", "li") . 
+        printForHtml("Fecha de creación: " . date("d-m-Y", $this->plantedDay), "li") .  
+        printForHtml("¿Completada?: " . ($this->taskCompleted ?"si" : "no"), "li");
+    }
+
+        
+    public function setTitle($title)
+    {
+            $this->title = $title;
+
+            return $this;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Plant.php";
+
 final class FruitTree extends Plant {
     public function __construct(
         string $title, 
@@ -57,5 +59,15 @@ final class FruitTree extends Plant {
             $this->calculateHealthPoints();
         }
         parent::completeOrReopenTask($isCompleted);
+    }
+
+    public function __tostring(){
+        return parent::__tostring() . 
+            printForHtml("Planta de tipo: arbol frutal (para tareas que se tienen que ir repitiendo durante un periodo de tiempo)", "li") . 
+            printForHtml("Frecuencia de repetición: {$this->frecuency}", "li") . 
+            printForHtml("Próxima ocurrencia: " . date("d-m-Y",$this->nextOcurrence), "li") . 
+            printForHtml("Ocurrencia Final: " . date("d-m-Y", $this->finalOccurrence), "li") . 
+            printForHtml("Historial de días que se ha cumplido la tarea", "li") .
+            printSimpleArray($this->history) . "</ul>";
     }
 }
