@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Garden</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <article>
@@ -72,23 +73,21 @@
         <!-- TODO: incertar aquí el gráfico UML de GARDEN-->
         <p>Ahora que sabemos que es un jardín, procedemos a explicar los métodos que tiene disponible, empecemos con añadir plantas al Jardín con el método <code>addPlant()</code> En este caso, vamos a usar el primer jardín del usuario Gato, y vamos a darle quehaceres</p>
         <?php
-            // FIX THISSSS 
-            $phpPlant = new HarvestPlant("Práctica PHP", "Crear aplicación web con PHP", $_SERVER['DOCUMENT_ROOT'] . "/public/css/images/silencePrincess.jpg", time(), strtotime("12 November 2025"));
-            $bool = $users1Garden->addPlant($phpPlant);
+            $phpPlant = new HarvestPlant("Práctica PHP", "Crear aplicación web con PHP", "/resources/assets/silencePrincess.jpg", time(), strtotime("12 November 2025"));
+            echo printBool($users1Garden->addPlant($phpPlant));
 
-            echo $bool;
             echo $phpPlant;
         ?>
         <p>¡Listo!, debemos tomar en cuenta además que no pueden existir dos plantas con el mismo nombre dentro de un mismo jardín</p>
         <?php
-            $repeatedPlant = $users1Garden->addPlant(new HarvestPlant("Práctica PHP", "Crear aplicación web con PHP", $_SERVER['DOCUMENT_ROOT'] . "/public/resources/assets/silencePrincess.jpg", time(), strtotime("12 November 2025")));
+            $repeatedPlant = $users1Garden->addPlant(new HarvestPlant("Práctica PHP", "Crear aplicación web con PHP", "/resources/assets/silencePrincess.jpg", time(), strtotime("12 November 2025")));
 
             echo printBool($repeatedPlant);
         ?>
-        <p>ahora, al igual que con los métodos para buscar, cambiar nombre, estos aplican igual a las plantas, veamos esos métodos</p>
+        <p>ahora, al igual que con los métodos para buscar y cambiar nombre, estos aplican igual a las plantas, veamos esos métodos</p>
         
-        <div class="flexContainer">
-            <div>
+        <div class="flex-container">
+            <div class="flex-contend">
                 <p><code>findPlant()</code></p>
                 <?php
                     $phpPlant = $users1Garden->findPlant("Práctica PHP");
@@ -96,13 +95,25 @@
                     echo $phpPlant;
                 ?>
             </div>
-        </div>
-        <div class="flexContainer">
-            <div>
+            <div class="flex-contend">
+                <p><code>plantExist()</code></p>
+                <p>¿Existe la planta "Práctica PHP"?</p>
+                <?php
+                    echo ($users1Garden->plantExist("Práctica PHP"));
+                ?>
+            </div>
+            <div class="flex-contend">
                 <p><code>changePlantTitle()</code></p>
                 <?php
+                    echo $phpPlant;
                     $phpPlant = $users1Garden->changePlantTitle("Práctica PHP", "PHP");
                     echo $phpPlant;
+                ?>
+            </div>
+            <div class="flex-contend">
+                <p><code>deletePlant()</code></p>
+                <?php
+                    echo printBool($users1Garden->deletePlant("PHP"));
                 ?>
             </div>
         </div>

@@ -45,16 +45,30 @@ class Garden {
     }
 
     /**
-     * Search for a plant in the garden
-     * @param string $plantTitle the plant title
-     * @return Plant|bool if exists, returns the plant, else, returns false
+     * Verifica si existe la planta por su nombre
+     * @param string $plantTitle
+     * @return bool
+     */
+    public function plantExist(string $plantTitle):bool{
+        foreach ($this->plants as $plants) {
+            if ($plantTitle == $plants->getTitle()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Busca y devuelve una planta por su títutlo, sino, devuelve false
+     * @param string $plantTitle
+     * @return Plant|bool
      */
     public function findPlant(string $plantTitle): Plant | bool{
         return findSomethingByTitle($plantTitle, $this->plants);
     }
 
     /**
-     * Look for unattended plants and takes them to the witheredPlants array
+     * Busca plantas marchitas (tareas que se le han pasado la fecha límite)
      * @return void
      */
     public function findwitheredPlants(): void{
@@ -67,7 +81,25 @@ class Garden {
     }
 
     /**
-     * Summary of clearDeadPlant
+     * Elimina una planta
+     * 
+     * Si la operación fue exitosa, devuelve true, sino, false
+     * @param string $plantTitle
+     * @return bool
+     */
+    public function deletePlant(string $plantTitle){
+        $plant = $this->findPlant($plantTitle);
+        if ($plant){
+            echo printForHtml("Eliminando Planta...");
+            array_splice($this->plants, array_search($plant, $this->plants), 1);
+            return !$this->plantExist($plantTitle) ? true : false;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Elimina todas las plantas marchitas
      * @return void
      */
     public function clearDeadPlant(): void{
