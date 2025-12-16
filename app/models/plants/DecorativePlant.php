@@ -13,6 +13,7 @@ final class DecorativePlant extends Plant{
         private int $currentStreak = 0,
         private int $longestStreak = 0,
         private int $lastTimeCompleted = 0,
+        PlantState $plantState = PlantState::seed,
         bool $taskCompleted = false, 
         int $healthPoints = 100, 
         ){
@@ -21,6 +22,7 @@ final class DecorativePlant extends Plant{
             $description, 
             $instanceImage, 
             $plantedDay, 
+            $plantState,
             $taskCompleted, 
             $healthPoints);
     }

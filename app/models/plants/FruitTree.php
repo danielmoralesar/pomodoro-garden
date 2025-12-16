@@ -13,6 +13,7 @@ final class FruitTree extends Plant {
         private int $finalOccurrence,
         private array $history = [],
         private bool $isCycleFinished = false,
+        PlantState $plantState = PlantState::seed,
         bool $taskCompleted = false, 
         int $healthPoints = 100, 
         ){
@@ -20,7 +21,8 @@ final class FruitTree extends Plant {
             $title, 
             $description, 
             $instanceImage, 
-            $plantedDay, 
+            $plantedDay,
+            $plantState, 
             $taskCompleted, 
             $healthPoints);
     }

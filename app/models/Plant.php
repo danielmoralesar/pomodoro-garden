@@ -1,11 +1,14 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/PlantState.php";
+
 abstract class Plant{
     public function __construct(
         protected string $title,
         protected string $description,
         protected string $instanceImage,
         protected int $plantedDay,
+        protected PlantState $plantState = PlantState::seed,
         protected bool $taskCompleted = false,
         protected int $healthPoints = 100,
     ){}
@@ -17,6 +20,10 @@ abstract class Plant{
      */
     public function completeOrReopenTask(bool $isCompleted): void{
         $this->taskCompleted = $isCompleted;
+    }
+
+    public function checkPlantState() {
+        #TODO
     }
 
     /**
