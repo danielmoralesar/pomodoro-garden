@@ -4,10 +4,12 @@ USE PomodoroGardenDB;
 
 CREATE TABLE IF NOT EXISTS users(
     id int PRIMARY KEY AUTO_INCREMENT,
-    name varchar(25) UNIQUE,
-    email varchar(100) UNIQUE,
-    password varchar(255)
+    name varchar(25) UNIQUE NOT NULL,
+    email varchar(100) UNIQUE NOT NULL,
+    password varchar(255) NOT NULL
 );
+
+DESCRIBE users;
 
 CREATE TABLE IF NOT EXISTS plants(
     id int PRIMARY KEY AUTO_INCREMENT,
@@ -21,6 +23,4 @@ CREATE TABLE IF NOT EXISTS plants(
     previous_state varchar(10)
 );
 
-INSERT INTO users (name, email, password) VALUES (
-	"emaol"
-);
+DROP TABLE users;

@@ -149,4 +149,17 @@ class User{
 
         return $this;
     }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword()
+    {
+            return $this->password;
+    }
 }
