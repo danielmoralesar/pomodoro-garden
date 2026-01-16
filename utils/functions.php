@@ -82,3 +82,22 @@ function printDatesArray(array $arr){
 function printBool(bool $bool){
     return printForHtml($bool ? "True" : "False");
 }
+
+/**
+ * Securiza los inputs recibidos por formularios
+ * @param mixed $input
+ * @return string
+ */
+function secure($input): string{
+    return htmlspecialchars(stripslashes(trim($input)));
+}
+
+/**
+ * Hashea las contraseñas dadas en texto plano
+ * Es obligatorio hashear las contraseñas antes de crear el objeto usuario
+ * @param mixed $pass
+ * @return string
+ */
+function hashPass($pass): string{
+    return password_hash($pass, PASSWORD_DEFAULT);
+}

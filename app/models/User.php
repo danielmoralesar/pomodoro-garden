@@ -5,8 +5,12 @@ class User{
     public function __construct(
         private string $userName,
         private string $email,
+        private string $password,
+        private int $id = -1,
         private array $gardens = []
-    ){}
+    ){
+        $this->hashedPass = hashPass($password);
+    }
 
     /**
      * Crea un nuevo jardín para el user, todos los jardines de cada usuarie deben tener titulos distintos.
@@ -130,6 +134,18 @@ class User{
     public function setGardens($gardens)
     {
         $this->gardens = $gardens;
+
+        return $this;
+    }
+ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }
