@@ -9,11 +9,9 @@ CREATE TABLE IF NOT EXISTS users(
     password varchar(255) NOT NULL
 );
 
-DESCRIBE users;
-
 CREATE TABLE IF NOT EXISTS plants(
     id int PRIMARY KEY AUTO_INCREMENT,
-    title varchar(100) UNIQUE,
+    title varchar(100) UNIQUE NOT NULL,
     description varchar(255),
     health_points int, 
     task_completed bool,
@@ -23,4 +21,13 @@ CREATE TABLE IF NOT EXISTS plants(
     previous_state varchar(10)
 );
 
-DROP TABLE users;
+DELETE FROM users;
+DELETE FROM PomodoroGardenDB.users WHERE id=10;
+
+SELECT * FROM users where "" = "";
+
+INSERT INTO users (name, email, password) VALUES ("test2", "correo@mail.com", "pass");
+
+UPDATE users SET name = 'testing', email = 'correo@mail.com' WHERE id=7;
+
+SELECT * FROM users;

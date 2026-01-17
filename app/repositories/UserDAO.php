@@ -1,55 +1,117 @@
 <?php
+
+use FFI\Exception;
 require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/app/core/CoreDB.php";
 class UserDAO {
 
     /**
-     * Insetta un nuevo usuario en la base de datos
+     * Inserta un nuevo usuario en la base de datos
      * Se verifica primero si el usuario tiene un id de -1 y que no tenga un email o username ya existentes, si no se cumple, devuelve null, si la inserción fue exitosa, se devuelve el id del usuario.
      * @param User $user
      * @return User|null
      */
-    public static function createUser(User $user): ?User{
-        if ($user->getId() == -1 && !UserDAO::selectUserByEmailOrUsername($user->getEmail(), true) && !UserDAO::selectUserByEmailOrUsername($user->getUserName(), false)){
+    public static function create(User &$user): ?User{
+        if ($user->getId() == -1 && !UserDAO::select($user->getEmail(), "email") && !UserDAO::select($user->getName(), "name")){
             $conn = CoreDB::getConn();
             $query = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
             $prSt = $conn->prepare($query);
 
-            $name = $user->getUserName();
+            $name = $user->getName();
             $email = $user->getEmail();
             $hash = $user->getPassword();
             $prSt->bind_param("sss",$name, $email, $hash);
             try {
                 $prSt->execute();
                 $user->setId($prSt->insert_id);
+                $conn->close();
                 return $user;
             } catch (Exception $e) {
+                var_dump($e);
+                $conn->close();
                 return null;
             }
-
+        } else {
+            return null;
         }
     }
 
-    public static function selectUser(int $userId) {
-
-    }
-
-    public static function selectUserByEmailOrUsername(string $data, bool $type): ?User{
+    /**
+     * Selecciona un usuario de la base de datos, necesitamos el dato a buscar y
+     * el tipo de dato, el tipo solo puede ser id, name o email, otro tipo de dato dará error.
+     * 
+     * @param string $data
+     * @param string $type
+     * @return User|null
+     */
+    public static function select(string $data, string $type): ?User{
+        if (!checkUserDataType($type)){
+            return null;
+        }
         $conn = CoreDB::getConn();
-        $query =  "SELECT * FROM user WHERE " . ($type ? "email = ?" : "name = ?");
+        $query =  "SELECT * FROM users WHERE $type = ?";
         $prSt = $conn->prepare($query);
         $prSt->bind_param("s", $data);
         $prSt->execute();
         $result = $prSt->get_result();
         if ($result->num_rows == 1){
             $row = $result->fetch_assoc();
-            return new User(
+            $newU = new User(
                 $row['name'],
                 $row['email'],
                 'DesconocemosLaContraseña',
                 $row['id']
             );
+            $conn->close();
+            return $newU;
         }
+        $conn->close();
         return null;
+    }    
+    
+    public static function update(User &$user):?User {
+        if ($user !== UserDAO::select($user->getId(), "id") &&
+            (!UserDAO::select($user->getEmail(), "email") ||
+            !UserDAO::select($user->getName(), "name"))){
+            $conn = CoreDB::getConn();
+            $query = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
+            $prSt = $conn->prepare($query);
+            $name = $user->getName();
+            $email = $user->getEmail();
+            $hash = $user->getPassword();
+            $id = $user->getId();
+            $prSt->bind_param("sssi", $name, $email, $hash, $id);
+            try {
+                $prSt->execute();
+                $conn->close();
+                return $user;
+            } catch (Exception $e) {
+                $conn->close();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public static function allowUser(string $email, $pass): bool{
+        $user = UserDAO::select($email, "email");
+        if ($user){
+            return password_verify($pass, $user->getPassword());
+        } else {
+            return false;
+        }
+    }
+
+    public static function delete(User &$user){
+        $conn = CoreDB::getConn();
+        $query = "DELETE FROM users WHERE id = ?";
+        $prSt = $conn->prepare($query);
+        $id = $user->getId();
+        $prSt->bind_param("i", $id);
+        $prSt->execute();
+        $result = $prSt->affected_rows > 0;
+        $conn->close();
+        return $result;
     }
 }

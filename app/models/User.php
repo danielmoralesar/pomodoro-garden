@@ -3,13 +3,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/Garden.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
 class User{
     public function __construct(
-        private string $userName,
+        private string $Name,
         private string $email,
         private string $password,
         private int $id = -1,
         private array $gardens = []
     ){
-        $this->hashedPass = hashPass($password);
+        $this->password = hashPass($password);
     }
 
     /**
@@ -109,14 +109,14 @@ class User{
     }
 
     public function __tostring(){
-        $gardens = printForHtml("Jardines de {$this->userName}:"). (count($this->gardens) < 1 ? printForHtml("{$this->userName} no tiene jardines.") : printObjectArray($this->gardens));
+        $gardens = printForHtml("Jardines de {$this->Name}:"). (count($this->gardens) < 1 ? printForHtml("{$this->Name} no tiene jardines.") : printObjectArray($this->gardens));
         return 
-            printForHtml(printForHtml("User: {$this->userName}; Email: {$this->email};") . $gardens, "div", "class", "object") ;
+            printForHtml(printForHtml("ID: {$this->id}; User: {$this->Name}; Email: {$this->email};") . $gardens, "div", "class", "object") ;
     }
 
-    public function getUserName()
+    public function getName()
     {
-        return $this->userName;
+        return $this->Name;
     }
 
     public function getGardens()
@@ -124,9 +124,9 @@ class User{
         return $this->gardens;
     }
 
-    public function setUserName($userName)
+    public function setName($Name)
     {
-        $this->userName = $userName;
+        $this->Name = $Name;
 
         return $this;
     }
@@ -160,6 +160,25 @@ class User{
      */ 
     public function getPassword()
     {
-            return $this->password;
+        return $this->password;
+    }
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */ 
+    public function setEmail($email)
+    {
+            $this->email = $email;
+
+            return $this;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = hashPass($password);
+
+        return $this;
     }
 }

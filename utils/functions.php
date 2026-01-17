@@ -99,5 +99,19 @@ function secure($input): string{
  * @return string
  */
 function hashPass($pass): string{
-    return password_hash($pass, PASSWORD_DEFAULT);
+    return password_hash($pass, PASSWORD_ARGON2ID);
 }
+
+/**
+ * Verifica si el tipo de dato pasado por el usuario es correcto o no
+ * @param string $data
+ * @return string|null
+ */
+function checkUserDataType(string $data): ?string{
+        return match (trim($data)){
+            'email' => 'email',
+            'name' => 'name',
+            'id' => 'id',
+            default => null
+        };
+    }
