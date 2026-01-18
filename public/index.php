@@ -2,8 +2,6 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/HarvestPlant.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/FruitTree.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/DecorativePlant.php";
     require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
 ?>
 <!DOCTYPE html>
@@ -16,7 +14,8 @@
 </head>
 <body>
     <?php
-
+        $plant = new HarvestPlant("test", "test", "/resources/assets/silencePrincess.jpg",  time() + 60 * 60 * 24 * 7);
+        echo $plant;
     ?>
 </body>
 </html>

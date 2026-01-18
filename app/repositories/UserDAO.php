@@ -27,7 +27,6 @@ class UserDAO {
                 $conn->close();
                 return $user;
             } catch (Exception $e) {
-                var_dump($e);
                 $conn->close();
                 return null;
             }
@@ -69,6 +68,15 @@ class UserDAO {
         return null;
     }    
     
+    /**
+     * Actualiza los datos del usuario que se le pase,
+     * Se puede cambiar todos los datos menos el ID.
+     * El email y el name solo se pueden cambiar a otro mientras no exista uno similar en la base de datos
+     * Primero se debe realizar el cambio en el objeto usuario y luego en la base de datos.
+     * Si se hace al reves, se devolverá null
+     * @param User $user
+     * @return User|null
+     */
     public static function update(User &$user):?User {
         if ($user !== UserDAO::select($user->getId(), "id") &&
             (!UserDAO::select($user->getEmail(), "email") ||
@@ -94,7 +102,13 @@ class UserDAO {
         }
     }
 
-    public static function allowUser(string $email, $pass): bool{
+    /**
+     * Verifica si las credenciales de inicio de sesión son correctas
+     * @param string $email
+     * @param mixed $pass
+     * @return bool
+     */
+    public static function signIn(string $email, $pass): bool{
         $user = UserDAO::select($email, "email");
         if ($user){
             return password_verify($pass, $user->getPassword());

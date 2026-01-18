@@ -6,13 +6,16 @@ abstract class Plant{
     public function __construct(
         protected string $title,
         protected string $description,
-        protected string $instanceImage,
-        protected int $plantedDay,
+        protected string $plantPic,
+        protected int $plantedDay = 0,
         protected PlantState $plantState = PlantState::seed,
         protected PlantState $previousState = PlantState::initial,
         protected bool $taskCompleted = false,
         protected int $healthPoints = 100,
-    ){}
+        protected int $id = -1
+    ){
+        $this->plantedDay = time();
+    }
  
     /**
      * Cerrar o volver a abrir una tarea
@@ -31,13 +34,13 @@ abstract class Plant{
             $this->previousState = $this->plantState;
             $this->plantState = PlantState::withered;
         } else {
-            if ($this->healthPoints < 200 && $this->healthPoints > 100 && $this->plantState < 2) {
+            if ($this->healthPoints < 200 && $this->healthPoints > 100 && $this->plantState->value == "seed") {
                 $this->previousState = $this->plantState;
                 $this->plantState = PlantState::sprout;
-            } else if ($this->healthPoints < 300 && $this->healthPoints > 200 && $this->plantState < 3){
+            } else if ($this->healthPoints < 300 && $this->healthPoints > 200 && $this->plantState->value == "sprout"){
                 $this->previousState = $this->plantState;
                 $this->plantState = PlantState::seedling;
-            } else if ($this->healthPoints < 400 && $this->healthPoints > 300 && $this->plantState < 4){
+            } else if ($this->healthPoints < 400 && $this->healthPoints > 300 && $this->plantState->value == "floweing"){
                 $this->previousState = $this->plantState;
                 $this->plantState = PlantState::flowering;
             }
@@ -71,10 +74,11 @@ abstract class Plant{
 
     public function __tostring(){
         return 
-        printForHtml("Título de la planta: {$this->title}", "h4") . 
-        printForHtml("<img src='{$this->instanceImage}' alt='{$this->title}' class='plant-img'>", "div", "class", "img-container") . " <ul>" . 
+        printForHtml("Título de la planta: {$this->title} - {$this->id}", "h4") . 
+        printForHtml("<img src=\"{$this->plantPic}\" alt='{$this->title}' class='plant-img'>", "div", "class", "img-container") . " <ul>" . 
         printForHtml(" Descripción: {$this->description}", "li"). 
         printForHtml("PS: {$this->healthPoints}", "li") . 
+        printForHtml("Estado actual: {$this->getPlantStateAsString()}", "li") .
         printForHtml("Fecha de creación: " . date("d-m-Y", $this->plantedDay), "li") .  
         printForHtml("¿Completada?: " . ($this->taskCompleted ?"si" : "no"), "li");
     }
@@ -84,11 +88,60 @@ abstract class Plant{
         return $this->taskCompleted;
     }
 
+    public function getPlantStateAsString()
+    {
+            return $this->plantState->value;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+            return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
         /**
-         * Get the value of plantState
+         * Get the value of description
          */ 
-        public function getPlantState()
+        public function getDescription()
         {
-                return $this->plantState;
+                return $this->description;
+        }
+
+        /**
+         * Get the value of plantPic
+         */ 
+        public function getPlantPic()
+        {
+                return $this->plantPic;
+        }
+
+        /**
+         * Get the value of plantedDay
+         */ 
+        public function getPlantedDay()
+        {
+                return $this->plantedDay;
+        }
+
+        /**
+         * Get the value of previousState
+         */ 
+        public function getPreviousStateAsString()
+        {
+                return $this->previousState->value;
         }
 }

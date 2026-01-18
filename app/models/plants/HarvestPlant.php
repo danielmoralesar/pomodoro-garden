@@ -7,23 +7,25 @@ final class HarvestPlant extends Plant{
     public function __construct(
         string $title, 
         string $description, 
-        string $instanceImage,
-        int $plantedDay, 
+        string $plantPic,
         private int $deadLine,
+        int $plantedDay = 0, 
         PlantState $plantState = PlantState::seed,
         PlantState $previousState = PlantState::initial, 
         bool $taskCompleted = false, 
-        int $healthPoints = 100, 
+        int $healthPoints = 100,
+        int $id = -1
         ){
         parent::__construct(
             $title, 
             $description, 
-            $instanceImage, 
+            $plantPic, 
             $plantedDay, 
             $plantState,
             $previousState,
             $taskCompleted, 
-            $healthPoints);
+            $healthPoints,
+            $id);
     }
 
     /**
@@ -52,4 +54,13 @@ final class HarvestPlant extends Plant{
             printForHtml("Planta de tipo: cosechable (tareas que solo se deben hacer una vez)", "li") . 
             printForHtml("Fecha límite: " . date("d-m-Y", $this->deadLine), "li") . "</ul>", "div", "class", "object");
     }
+
+
+        /**
+         * Get the value of deadLine
+         */ 
+        public function getDeadLine()
+        {
+                return $this->deadLine;
+        }
 }

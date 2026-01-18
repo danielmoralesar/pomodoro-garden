@@ -108,10 +108,18 @@ function hashPass($pass): string{
  * @return string|null
  */
 function checkUserDataType(string $data): ?string{
-        return match (trim($data)){
-            'email' => 'email',
-            'name' => 'name',
-            'id' => 'id',
-            default => null
-        };
-    }
+    return match (trim($data)){
+        'email' => 'email',
+        'name' => 'name',
+        'id' => 'id',
+        default => null
+    };
+}
+
+function checkPlantDataType(string $data): ?string{
+    return match (trim($data)){
+        'title' => 'title',
+        'id' => 'id',
+        default => null
+    };
+}

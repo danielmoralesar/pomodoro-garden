@@ -13,12 +13,13 @@ CREATE TABLE IF NOT EXISTS plants(
     id int PRIMARY KEY AUTO_INCREMENT,
     title varchar(100) UNIQUE NOT NULL,
     description varchar(255),
-    health_points int, 
-    task_completed bool,
-    instance_instance varchar(255),
-    plantedDay DATE,
-    plant_state varchar(10),
-    previous_state varchar(10)
+    plant_pic varchar(255) NOT NULL,
+    deadline int NOT NULL,
+    planted_day int NOT NULL,
+    plant_state varchar(10) NOT NULL,
+    previous_state varchar(10) NOT NULL,
+    task_completed bool NOT NULL,
+    health_points int NOT NULL
 );
 
 DELETE FROM users;
@@ -31,3 +32,5 @@ INSERT INTO users (name, email, password) VALUES ("test2", "correo@mail.com", "p
 UPDATE users SET name = 'testing', email = 'correo@mail.com' WHERE id=7;
 
 SELECT * FROM users;
+
+DROP TABLE PomodoroGardenDB.plants;
