@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS plants(
 
 DELETE FROM users;
 DELETE FROM PomodoroGardenDB.users WHERE id=10;
+DELETE FROM PomodoroGardenDB.plants;
 
 SELECT * FROM users where "" = "";
 
@@ -32,5 +33,8 @@ INSERT INTO users (name, email, password) VALUES ("test2", "correo@mail.com", "p
 UPDATE users SET name = 'testing', email = 'correo@mail.com' WHERE id=7;
 
 SELECT * FROM users;
+DELETE FROM PomodoroGardenDB.plants;
+
 
 DROP TABLE PomodoroGardenDB.plants;
+DROP DATABASE PomodoroGardenDB;
