@@ -1,4 +1,8 @@
 <?php
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/HarvestPlant.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
 
         $user = new User("testing2", "testing@gmail.com", "SuperSecurePassword");
         UserDAO::create($user);
@@ -39,11 +43,11 @@
 
         echo printForHtml("Inicio de sesión");
         echo printForHtml("credenciales correctas:");
-        var_dump(UserDAO::allowUser("newemail@gmail.com", "PasswordSuperSecure"));
+        var_dump(UserDAO::signIn("newemail@gmail.com", "PasswordSuperSecure"));
         echo printForHtml("contraseña incorrecta:");
-        var_dump(UserDAO::allowUser("newemail@gmail.com", "Password"));
+        var_dump(UserDAO::signIn("newemail@gmail.com", "Password"));
         echo printForHtml("email incorrecto:");
-        var_dump(UserDAO::allowUser("newemail@gmail.com", "Password"));
+        var_dump(UserDAO::signIn("newemail@gmail.com", "Password"));
         echo "<hr>";
 
         echo printForHtml("eliminar usuario");

@@ -74,7 +74,7 @@ abstract class Plant{
 
     public function __tostring(){
         return 
-        printForHtml("Título de la planta: {$this->title} - {$this->id}", "h4") . 
+        printForHtml("Título de la planta: {$this->title} - id: {$this->id}", "h4") . 
         printForHtml("<img src=\"{$this->plantPic}\" alt='{$this->title}' class='plant-img'>", "div", "class", "img-container") . " <ul>" . 
         printForHtml(" Descripción: {$this->description}", "li"). 
         printForHtml("PS: {$this->healthPoints}", "li") . 

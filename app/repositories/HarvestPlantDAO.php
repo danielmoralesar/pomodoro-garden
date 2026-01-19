@@ -6,8 +6,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/HarvestPlant.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/PlantState.php";
 
 class HarvestPlantDAO{
-    public static function create(HarvestPlant &$harvestPlant): ?HarvestPlant{
-        if (!HarvestPlantDAO::select($harvestPlant->getTitle(), "title")){
+    public static function create(HarvestPlant &$harvestPlant){
+        if (!HarvestPlantDAO::select($harvestPlant->getTitle(), "title") && $harvestPlant->getId() == -1){
             $conn = CoreDB::getConn();
             $query = "INSERT INTO plants (title, description, plant_pic, deadline, planted_day, plant_state, previous_state, task_completed, health_points)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $prSt = $conn->prepare($query);
@@ -19,7 +19,7 @@ class HarvestPlantDAO{
             $plantedDay = $harvestPlant->getPlantedDay();
             $plantState = $harvestPlant->getPlantStateAsString();
             $previousState = $harvestPlant->getPreviousStateAsString();
-            $taskCompleted = $harvestPlant->getTaskCompleted();
+            $taskCompleted = $harvestPlant->getTaskCompleted() ? 0 : 1;
             $healthPoints = $harvestPlant->getHealthPoints();
 
             $prSt->bind_param("sssiisssi",
@@ -32,7 +32,7 @@ class HarvestPlantDAO{
                 return $harvestPlant;
             } catch (Exception $e){
                 $conn->close();
-                return null;
+                return $e;
             }
         } else {
             return null;
@@ -57,9 +57,9 @@ class HarvestPlantDAO{
                 $row['plant_pic'],
                 $row['deadline'],
                 $row['planted_day'],
-                $row['plant_state'],
-                $row['previous_state'],
-                $row['task_completed'],
+                PlantState::fromCaseName($row['plant_state']),
+                PlantState::fromCaseName($row['previous_state']),
+                ($row['task_completed'] == 0 ? true : false),
                 $row['health_points'],
                 $row['id']
             );
@@ -85,9 +85,9 @@ class HarvestPlantDAO{
                 $row['plant_pic'],
                 $row['deadline'],
                 $row['planted_day'],
-                $row['plant_state'],
-                $row['previous_state'],
-                $row['task_completed'],
+                PlantState::fromCaseName($row['plant_state']),
+                PlantState::fromCaseName($row['previous_state']),
+                ($row['task_completed'] == 0 ? true : false),
                 $row['health_points'],
                 $row['id']
             );
@@ -97,8 +97,9 @@ class HarvestPlantDAO{
 
     public static function update(HarvestPlant $harvestPlant): ?HarvestPlant{
         $plantDB = HarvestPlantDAO::select($harvestPlant->getTitle(), "title");
-        if ($harvestPlant !== HarvestPlantDAO::select($harvestPlant->getId(), "id") &&
+        if ($harvestPlant != HarvestPlantDAO::select($harvestPlant->getId(), "id") &&
         (!$plantDB || $plantDB->getId() == $harvestPlant->getId())){
+            echo printForHtml("he pasado");
             $conn = CoreDB::getConn();
             $query = "UPDATE plants SET title = ?, description = ?, plant_pic = ?, deadline = ?, planted_day = ?, plant_state = ?, previous_state = ?, task_completed = ?, health_points = ? WHERE id = ?";
             $prSt = $conn->prepare($query);
@@ -110,7 +111,7 @@ class HarvestPlantDAO{
             $plantedDay = $harvestPlant->getPlantedDay();
             $plantState = $harvestPlant->getPlantStateAsString();
             $previousState = $harvestPlant->getPreviousStateAsString();
-            $taskCompleted = $harvestPlant->getTaskCompleted();
+            $taskCompleted = $harvestPlant->getTaskCompleted() ? 0 : 1;
             $healthPoints = $harvestPlant->getHealthPoints();
             $id = $harvestPlant->getId();
 
