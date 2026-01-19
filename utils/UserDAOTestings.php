@@ -43,11 +43,11 @@
 
         echo printForHtml("Inicio de sesión");
         echo printForHtml("credenciales correctas:");
-        var_dump(UserDAO::signIn("newemail@gmail.com", "PasswordSuperSecure"));
+        var_dump(UserDAO::logIn("newemail@gmail.com", "PasswordSuperSecure"));
         echo printForHtml("contraseña incorrecta:");
-        var_dump(UserDAO::signIn("newemail@gmail.com", "Password"));
+        var_dump(UserDAO::logIn("newemail@gmail.com", "Password"));
         echo printForHtml("email incorrecto:");
-        var_dump(UserDAO::signIn("newemail@gmail.com", "Password"));
+        var_dump(UserDAO::logIn("newemail@gmail.com", "Password"));
         echo "<hr>";
 
         echo printForHtml("eliminar usuario");

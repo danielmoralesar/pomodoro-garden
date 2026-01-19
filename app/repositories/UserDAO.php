@@ -108,7 +108,7 @@ class UserDAO {
      * @param mixed $pass
      * @return bool
      */
-    public static function signIn(string $email, $pass): bool{
+    public static function logIn(string $email, $pass): bool{
         $user = UserDAO::select($email, "email");
         if ($user){
             return password_verify($pass, $user->getPassword());
