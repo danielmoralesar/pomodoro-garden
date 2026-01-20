@@ -9,17 +9,19 @@
         
         require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
         $email = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
-        $pass = $_POST['pass'] === $_POST['chPass'] ? hashPass(secure($_POST['pass'])) : false;
+        $pass = secure($_POST['pass']) == secure($_POST['chPass']) ? hashPass(secure($_POST['pass'])) : false;
         $name = secure($_POST['name']);
 
-        $errorMsg = $email ? printForHtml("Debes ingresar un mail", "li") : false;
-        $errorMsg .= empty($name) ? printForHtml("Debes ingresar un nombre de usuario", "li") : $errorMsg;
-        $errorMsg .= $pass ? printForHtml("Las contraseñas no coinciden", "li") : $errorMsg;
+        $errorMsg = empty($email) ? printForHtml("Debes ingresar un mail", "li") : false;
+        $errorMsg .= empty($name) ? printForHtml("Debes ingresar un nombre de usuario", "li") : "";
+        $errorMsg .= empty($pass) ? printForHtml("Las contraseñas no coinciden", "li") : "";
 
         $error = $errorMsg ? true : false;
 
-        if ($error){
-            if (!UserDAO::select($email, "email") && !UserDAO::select($name, "name")){
+        if (!$error){
+            $previousEmailExists = UserDAO::select($email, "email") ? true : false;
+            $previousUserExists = UserDAO::select($name, "name") ? true : false;
+            if (!$previousEmailExists && !$previousUserExists){
                 $user = new User($name, $email, $pass);
                 UserDAO::create($user);
 
@@ -29,6 +31,10 @@
                     header("Location: logIn.php");
                     exit();
                 }
+            } else {
+                $error = true;
+                $errorMsg = $previousEmailExists ? printForHtml("Ya existe una cuenta con ese email", "ul") : "";
+                $errorMsg .= $previousUserExists ? printForHtml("Ya existe un usuario con ese nombre", "ul") : "";
             }
         }
     }

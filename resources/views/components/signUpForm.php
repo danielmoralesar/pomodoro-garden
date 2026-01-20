@@ -1,6 +1,6 @@
 <div>
-    <div class="col-12 <?= !$error ?'':'d-none'?>">
-        <?=$errorMsg ? printForHtml($errorMsg, "ul") : ""?>
+    <div class="col-12 <?= !$error ?'d-none' : ''?>">
+        <?=!empty($errorMsg) ? printForHtml($errorMsg, "ul") : ""?>
     </div>
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
         <label for="name">Nombre de usuario</label>
