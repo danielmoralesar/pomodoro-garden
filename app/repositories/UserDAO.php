@@ -105,10 +105,10 @@ class UserDAO {
     /**
      * Verifica si las credenciales de inicio de sesión son correctas
      * @param string $email
-     * @param mixed $pass
+     * @param mixed $pass la contraseña debe hashearse antes de usar esta función.
      * @return bool
      */
-    public static function logIn(string $email, $pass): bool{
+    public static function logIn(string $email, string $pass): bool{
         $user = UserDAO::select($email, "email");
         if ($user){
             return password_verify($pass, $user->getPassword());

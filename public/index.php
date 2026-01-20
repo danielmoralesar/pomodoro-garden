@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="container-fluid">
+        <div class="row">
+            
+        </div>
+    </div>
     <?php
         
     ?>
