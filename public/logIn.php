@@ -1,6 +1,7 @@
 <?php
     session_start();
-    $mail = $pass = "";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+    $email = $pass = "";
     $error = false;
 
     if(isset($_COOKIE['stay-connected'])){
@@ -11,18 +12,18 @@
     }
 
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+        
         require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
-        $mail = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
-        $error = $mail ? false : true;
-        $pass = hashPass($_POST['pass']);
+        $email = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
+        $error = $email ? false : true;
+        $pass = hashPass(secure($_POST['pass']));
 
         if (!$error){
             if (UserDAO::logIn($email, $pass)){
                 if (isset($_POST['stay-connected'])){
-                    setcookie("stay-connected", $mail, time()+60*60*24*30, "/");
+                    setcookie("stay-connected", $email, time()+60*60*24*30, "/");
                 }
-                $_SESSION['user'] = UserDAO::select("email", $mail);
+                $_SESSION['user'] = UserDAO::select("email", $email);
                 $_SESSION['origin'] = "login";
                 header("Location: index.php");
                 exit();
@@ -37,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inicia sesión - Pomodoro Garden</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
