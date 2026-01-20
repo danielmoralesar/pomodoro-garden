@@ -11,12 +11,14 @@
     }
 
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
-        include $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
-        $mail = $error = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
+        $mail = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
+        $error = $mail ? false : true;
         $pass = hashPass($_POST['pass']);
 
         if (!$error){
-            if (UserDAO::logIn($email, $pass) = $error){
+            if (UserDAO::logIn($email, $pass)){
                 if (isset($_POST['stay-connected'])){
                     setcookie("stay-connected", $mail, time()+60*60*24*30, "/");
                 }
@@ -24,12 +26,14 @@
                 $_SESSION['origin'] = "login";
                 header("Location: index.php");
                 exit();
+            } else {
+                $error = true;
             }
         }
     }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

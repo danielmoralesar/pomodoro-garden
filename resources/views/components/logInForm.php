@@ -1,5 +1,9 @@
 <div>
+    <div class="col-12 <?= $error?'':'d-none'?>">
+        <p>Hay un error en tu email o contraseña</p>
+    </div>
     <form action="<?= $_SERVER['PHP_SELF']?>" method="post">
+        
         <label for="pass">Tu email</label>
         <input type="email" name="email" id="email" required>
         <label for="pass">Contraseña</label>

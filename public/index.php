@@ -1,9 +1,10 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/HarvestPlant.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/HarvestPlantDAO.php";
+    session_start();
+    if (!isset($_COOKIE['stay-connected']) || !isset($_SESSION['origin'])){
+        $_SESSION['invalidLogIn'] = true;
+        header("Location: logIn.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,9 +16,18 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            
+    <?php
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/User.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/app/models/plants/HarvestPlant.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/HarvestPlantDAO.php";
+    ?>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+                <?=printForHtml("Bienvenido a tu jardín, " . $_SERVER['user']->getName(), "h1")?>
+            </div>
         </div>
     </div>
     <?php
