@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
-    $email = $pass = "";
+    $email = "";
     $error = false;
 
     if(isset($_COOKIE['stay-connected'])){
@@ -15,15 +15,13 @@
         
         require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
         $email = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
-        $error = $email ? false : true;
-        //TODO fix this
-        $pass = hashPass(secure($_POST['pass']));
+        $error = !$email ? true : false;
         var_dump($error);
         var_dump($email);
 
         if (!$error){
             var_dump("primer pase");
-            if (UserDAO::logIn($email, $pass)){
+            if (UserDAO::logIn($email, secure($_POST['pass']))){
                 if (isset($_POST['stay-connected'])){
                     setcookie("stay-connected", $email, time()+60*60*24*30, "/");
                 }

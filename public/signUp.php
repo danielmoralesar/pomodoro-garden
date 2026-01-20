@@ -9,7 +9,7 @@
         
         require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
         $email = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
-        $pass = secure($_POST['pass']) == secure($_POST['chPass']) ? hashPass(secure($_POST['pass'])) : false;
+        $pass = secure($_POST['pass']) == secure($_POST['chPass']) ? secure($_POST['pass']) : false;
         $name = secure($_POST['name']);
 
         $errorMsg = empty($email) ? printForHtml("Debes ingresar un mail", "li") : false;

@@ -28,7 +28,7 @@ DELETE FROM PomodoroGardenDB.plants;
 
 SELECT * FROM users where "" = "";
 
-INSERT INTO users (name, email, password) VALUES ("test2", "correo@mail.com", "pass");
+INSERT INTO users (name, email, password) VALUES ("test", "correo@mail.com", "pass");
 
 UPDATE users SET name = 'testing', email = 'correo@mail.com' WHERE id=7;
 

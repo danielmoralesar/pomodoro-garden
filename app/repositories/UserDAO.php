@@ -58,7 +58,7 @@ class UserDAO {
             $newU = new User(
                 $row['name'],
                 $row['email'],
-                'DesconocemosLaContraseña',
+                $row['password'],
                 $row['id']
             );
             $conn->close();
@@ -105,7 +105,7 @@ class UserDAO {
     /**
      * Verifica si las credenciales de inicio de sesión son correctas
      * @param string $email
-     * @param mixed $pass la contraseña debe hashearse antes de usar esta función.
+     * @param mixed $pass la contraseña debe pasarse en texto plano
      * @return bool
      */
     public static function logIn(string $email, string $pass): bool{
