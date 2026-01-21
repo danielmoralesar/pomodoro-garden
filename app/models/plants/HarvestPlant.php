@@ -49,10 +49,31 @@ final class HarvestPlant extends Plant{
         }
     }
 
-    public function __tostring(){
-        return printForHtml(parent::__tostring() . 
-            printForHtml("Planta de tipo: cosechable (tareas que solo se deben hacer una vez)", "li") . 
-            printForHtml("Fecha límite: " . date("d-m-Y", $this->deadLine), "li") . "</ul>", "div", "class", "object");
+    public function __tostring(): string{
+        if (!$this->taskCompleted){
+            $daysTillBeDone = convertSecondsToDays($this->deadLine - time());
+            if ($daysTillBeDone < 5){
+                $footer = "<p>Quedan <span class=\"text-warning-emphasis\">$daysTillBeDone</span> para terminar la tarea</p>";
+            } else if ($daysTillBeDone < 1){
+                $footer = "<p>Quedan <span class=\"text-danger\">$daysTillBeDone</span> para terminar la tarea</p>";
+            } else {
+                $footer = "<p>Quedan <span class=\"text-info\">$daysTillBeDone</span> para terminar la tarea</p>";
+            }
+        } else {
+            $footer = "<p class=\"text-bg-success\">¡Tarea completada!</p>";
+        }
+
+        //TODO crear un botón que cierre la tarea o elimine la planta
+        // IDEA: que el botón sea un summit que lleve a terminar/abrir la tarea o eliminar la planta. Pidiendo confirmación antes.
+        
+        return "<div class=\"col-12 col-md-6 col-lg-4\">
+            <div class=\"card\">
+                ". parent::__tostring() ."
+                <div class=\"card-footer\">
+                     $footer 
+                </div>
+            </div>
+        </div>";
     }
 
 

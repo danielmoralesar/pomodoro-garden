@@ -27,22 +27,7 @@
 <body>
     <?php include $_SERVER['DOCUMENT_ROOT'] . "/resources/views/layouts/header.php" ?>
     <main class="container py-4">
-        <div class="row">
-            <div class="col-12">
-                <?=printForHtml("Bienvenido a tu jardín, " . $user->getName() . "🧑‍🌾", "h1")?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h2>Estas son las plantas en tu jardín</h2>
-                
-            </div>
-        </div>
-        <div class="row">
-            <?php 
-                // TODO mostrar las 5 últimas plantas junto con una card de crear una.
-            ?>
-        </div>
+        <?=printForHtml("Bienvenido a tu jardín, " . $user->getName(), "h1")?>
     </main>
     <?php include $_SERVER['DOCUMENT_ROOT'] . "/resources/views/layouts/footer.php" ?>
     <script src="js/bootstrap.bundle.min.js"></script>

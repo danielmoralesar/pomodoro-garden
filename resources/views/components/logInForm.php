@@ -16,3 +16,5 @@
         <p>¿no tienes cuenta? <a href="/public/signUp.php">crea una</a></p>
     </form>
 </div>
+
+<!-- Buscar como aplicarle bootstrap a esto -->

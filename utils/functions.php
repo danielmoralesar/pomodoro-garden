@@ -116,10 +116,42 @@ function checkUserDataType(string $data): ?string{
     };
 }
 
+/**
+ * Verifica si el tipo dado por la planta es correcta o no
+ * @param string $data
+ * @return string|null
+ */
 function checkPlantDataType(string $data): ?string{
     return match (trim($data)){
         'title' => 'title',
         'id' => 'id',
         default => null
     };
+}
+
+/**
+ * Da la propiedad active a la página donde se encuentre el usuario
+ * @param string $location
+ * @return string
+ */
+function activeHeader(string $location): string{
+    return $_SERVER['PHP_SELF'] == "/public/$location.php" ? "active" : "";
+}
+
+/**
+ * Convierte tiempo unix a días, meses y años
+ * @param int $date
+ * @return string
+ */
+function convertUnixToDate(int $date): string{
+    return gmdate("d-m-Y", $date);
+}
+
+/**
+ * Convierte tiempo unix a días.
+ * @param int $time
+ * @return string
+ */
+function convertSecondsToDays(int $time): int {
+    return round($time / 86400);
 }

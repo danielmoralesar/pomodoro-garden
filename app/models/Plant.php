@@ -72,15 +72,19 @@ abstract class Plant{
         return $this;
     }
 
-    public function __tostring(){
-        return 
-        printForHtml("Título de la planta: {$this->title} - id: {$this->id}", "h4") . 
-        printForHtml("<img src=\"{$this->plantPic}\" alt='{$this->title}' class='plant-img'>", "div", "class", "img-container") . " <ul>" . 
-        printForHtml(" Descripción: {$this->description}", "li"). 
-        printForHtml("PS: {$this->healthPoints}", "li") . 
-        printForHtml("Estado actual: {$this->getPlantStateAsString()}", "li") .
-        printForHtml("Fecha de creación: " . date("d-m-Y", $this->plantedDay), "li") .  
-        printForHtml("¿Completada?: " . ($this->taskCompleted ?"si" : "no"), "li");
+    public function __tostring()
+    {
+        return "
+        <img class=\"card-img-top plant-card-img\" alt=\"Planta\" src=\"{$this->plantPic}\">
+        <div class=\"card-body\">
+            <h5 class=\"card-title\">{$this->title}</h5>
+            <p class=\"card-text\">{$this->description}</p>
+            <ul>
+                <li>Se plantó el día: ". convertUnixToDate($this->plantedDay) ."</li>
+                <li>Su estado es: {$this->getPlantStateAsString()}</li>
+                <li>La tarea ".($this->taskCompleted ? "" : "no") ." está completada</li>
+            </ul>
+        </div>";
     }
 
     public function getTaskCompleted()
