@@ -9,7 +9,6 @@ class User{
         private int $id = -1,
         private array $gardens = []
     ){
-        $this->password = hashPass($password);
     }
 
     /**
@@ -111,7 +110,7 @@ class User{
     public function __tostring(){
         $gardens = printForHtml("Jardines de {$this->Name}:"). (count($this->gardens) < 1 ? printForHtml("{$this->Name} no tiene jardines.") : printObjectArray($this->gardens));
         return 
-            printForHtml(printForHtml("ID: {$this->id}; User: {$this->Name}; Email: {$this->email};") . $gardens, "div", "class", "object") ;
+            printForHtml(printForHtml("ID: {$this->id}; User: {$this->Name}; Email: {$this->email}; Hash: {$this->password}") . $gardens, "div", "class", "object") ;
     }
 
     public function getName()

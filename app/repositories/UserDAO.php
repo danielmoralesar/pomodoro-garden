@@ -110,6 +110,7 @@ class UserDAO {
      */
     public static function logIn(string $email, string $pass): bool{
         $user = UserDAO::select($email, "email");
+        var_dump($user);
         if ($user){
             return password_verify($pass, $user->getPassword());
         } else {

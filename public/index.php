@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_COOKIE['stay-connected']) || !isset($_SESSION['origin'])){
+    if (!isset($_COOKIE['stay-connected']) && !isset($_SESSION['origin'])){
         $_SESSION['invalidLogIn'] = true;
         header("Location: logIn.php");
         exit();
@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col">
-                <?=printForHtml("Bienvenido a tu jardín, " . $_SERVER['user']->getName(), "h1")?>
+                <?=printForHtml("Bienvenido a tu jardín, " . $_SESSION['user']->getName(), "h1")?>
             </div>
         </div>
     </div>
