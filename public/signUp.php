@@ -17,12 +17,12 @@
         
         require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
         $email = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
-        $pass = secure($_POST['pass']) == secure($_POST['chPass']) ? hashPass(secure($_POST['pass'])) : false;
+        $pass = $_POST['pass'] === $_POST['chPass'] ? hashPass($_POST['pass']) : false;
         $name = secure($_POST['name']);
 
         $errorEmail = empty($email) ? printForHtml("Debes ingresar un mail válido", "div", "class", "invalid-feedback") : false;
-        $errorName .= empty($name) ? printForHtml("Debes ingresar un nombre de usuario", "div", "class", "invalid-feedback") : false;
-        $errorPass .= empty($pass) ? printForHtml("Las contraseñas no coinciden", "div", "class", "invalid-feedback") : false;
+        $errorName = empty($name) ? printForHtml("Debes ingresar un nombre de usuario", "div", "class", "invalid-feedback") : false;
+        $errorPass = empty($pass) ? printForHtml("Las contraseñas no coinciden", "div", "class", "invalid-feedback") : false;
 
         $error = $errorEmail || $errorName || $errorPass ? true : false;
 

@@ -22,6 +22,6 @@ CREATE TABLE IF NOT EXISTS plants(
     health_points int NOT NULL
 );
 
-INSERT INTO PomodoroGardenDB.users (name, email, password) VALUES ("test", "correo@mail.com", "pass");
+INSERT INTO PomodoroGardenDB.users (name, email, password) VALUES ("test", "correo@mail.com", "ContraseñaHasheada");
 
 INSERT INTO plants (title, description, plant_pic, deadline, planted_day, plant_state, previous_state, task_completed, health_points) VALUES ("Test", "test", "/resources/assets/silencePrincess.jpg", 1, 2, "seed", "initial", false, 100);

@@ -18,7 +18,7 @@
         $error = !$email ? true : false;
 
         if (!$error){
-            if (UserDAO::logIn($email, secure($_POST['pass']))){
+            if (UserDAO::logIn($email, $_POST['pass'])){
                 if (isset($_POST['stay-connected'])){
                     setcookie('stay-connected', $email, time()+60*60*24*30, "/");
                 }

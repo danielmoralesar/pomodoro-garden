@@ -1,5 +1,5 @@
 <div class="card p-4 col-12">
-    <card class="card-body">
+    <div class="card-body">
         <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
             <div class="mb-3">
                 <label for="title" class="form-label">Título de la tarea</label>

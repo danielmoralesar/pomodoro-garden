@@ -17,7 +17,7 @@
 
         $title = secure($_POST['title']);
         $description = isset($_POST['description']) ? secure($_POST['description']) : "";
-        $date = strtotime(secure($_POST['deadLine']));
+        $date = strtotime($_POST['deadLine']);
         
         $errorTitle = empty($title) ? printForHtml("El título es obligatorio", "div", "class", "invalid-feedback") : "";
         $errorDate = empty($date) ? printForHtml("Debes ingresar la fecha límite de la tarea", "div", "class", "invalid-feedback") : "";
