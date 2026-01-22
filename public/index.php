@@ -37,9 +37,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-2">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-center align-items-center">
+            <div class="col-12 col-md-6 col-lg-2 mb-3">
+                <div class="card" style="height: 100%">
+                    <div class="card-body d-flex justify-content-center align-items-center" >
                         <h5 class="card-title"><a class="btn btn-outline-success" href="plants.php">Crea una tarea</a></h5>
                     </div>
                 </div>

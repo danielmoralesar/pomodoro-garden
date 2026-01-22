@@ -30,7 +30,10 @@
                 HarvestPlantDAO::create($newPlant);
             } else {
                 $errorTitle = printForHtml("No se pueden repetir los nombres de las plantas", "div", "class", "invalid-feedback");
+                $error = true;
             }
+        } else {
+            $error = true;
         }
     } else if (isset($_POST['delete'])) {
         $plantDelete = HarvestPlantDAO::select($_POST['plantIdDelete'], "id");

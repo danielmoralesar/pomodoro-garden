@@ -65,8 +65,8 @@ final class HarvestPlant extends Plant{
 
         $openOrCloseTaskBtn = $this->taskCompleted ? "Abrir" : "Terminar";
         
-        return "<div class=\"col-12 col-md-6 col-lg-2\">
-            <div class=\"card card-fixed\">
+        return "<div class=\"col-12 col-md-6 col-lg-2 mb-3\">
+            <div class=\"card\" style=\"height: 100%\">
                 ". parent::__tostring() ."
                 <div class=\"card-footer\">
                     $footer
