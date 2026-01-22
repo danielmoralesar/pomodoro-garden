@@ -6,7 +6,7 @@ abstract class Plant{
     public function __construct(
         protected string $title,
         protected string $description,
-        protected string $plantPic,
+        protected string $plantPic = "/resources/assets/silencePrincess.jpg",
         protected int $plantedDay = 0,
         protected PlantState $plantState = PlantState::seed,
         protected PlantState $previousState = PlantState::initial,
@@ -14,7 +14,7 @@ abstract class Plant{
         protected int $healthPoints = 100,
         protected int $id = -1
     ){
-        $this->plantedDay = time();
+        $this->plantedDay = ($this->plantedDay == 0) ? time() : $this->plantedDay;
     }
  
     /**

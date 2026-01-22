@@ -54,8 +54,8 @@ class HarvestPlantDAO{
             $plant = new HarvestPlant(
                 $row['title'],
                 $row['description'],
-                $row['plant_pic'],
                 $row['deadline'],
+                $row['plant_pic'],
                 $row['planted_day'],
                 PlantState::fromCaseName($row['plant_state']),
                 PlantState::fromCaseName($row['previous_state']),
@@ -82,8 +82,8 @@ class HarvestPlantDAO{
             $plants[] = new HarvestPlant(
                 $row['title'],
                 $row['description'],
-                $row['plant_pic'],
                 $row['deadline'],
+                $row['plant_pic'],
                 $row['planted_day'],
                 PlantState::fromCaseName($row['plant_state']),
                 PlantState::fromCaseName($row['previous_state']),
@@ -99,7 +99,6 @@ class HarvestPlantDAO{
         $plantDB = HarvestPlantDAO::select($harvestPlant->getTitle(), "title");
         if ($harvestPlant != HarvestPlantDAO::select($harvestPlant->getId(), "id") &&
         (!$plantDB || $plantDB->getId() == $harvestPlant->getId())){
-            echo printForHtml("he pasado");
             $conn = CoreDB::getConn();
             $query = "UPDATE plants SET title = ?, description = ?, plant_pic = ?, deadline = ?, planted_day = ?, plant_state = ?, previous_state = ?, task_completed = ?, health_points = ? WHERE id = ?";
             $prSt = $conn->prepare($query);
@@ -131,7 +130,7 @@ class HarvestPlantDAO{
         }
     }
 
-    public static function delete(HarvestPlant $harvestPlant){
+    public static function delete(HarvestPlant $harvestPlant): bool{
         $conn = CoreDB::getConn();
         $query = "DELETE FROM plants WHERE id = ?";
         $prSt = $conn->prepare($query);

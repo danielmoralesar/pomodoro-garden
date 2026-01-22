@@ -17,9 +17,6 @@
                     <a href="plants.php" class="nav-link <?= activeHeader("plants")?>">Todas tus plantas</a>
                 </li>
                 <li class="nav-item">
-                    <a href="account.php" class="nav-link <?= activeHeader("account")?>">Tu cuenta</a>
-                </li>
-                <li class="nav-item">
                     <a href="closeSession.php" class="btn btn-outline-danger">Cerrar sesión</a>
                 </li>
             </ul>

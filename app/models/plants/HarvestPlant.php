@@ -7,8 +7,8 @@ final class HarvestPlant extends Plant{
     public function __construct(
         string $title, 
         string $description, 
-        string $plantPic,
         private int $deadLine,
+        string $plantPic = "/resources/assets/silencePrincess.jpg",
         int $plantedDay = 0, 
         PlantState $plantState = PlantState::seed,
         PlantState $previousState = PlantState::initial, 
@@ -53,35 +53,61 @@ final class HarvestPlant extends Plant{
         if (!$this->taskCompleted){
             $daysTillBeDone = convertSecondsToDays($this->deadLine - time());
             if ($daysTillBeDone < 5){
-                $footer = "<p>Quedan <span class=\"text-warning\">$daysTillBeDone</span> para terminar la tarea</p>";
+                $footer = "<p>Quedan <span class=\"text-warning\">$daysTillBeDone</span> día(s) para terminar la tarea</p>";
             } else if ($daysTillBeDone < 1){
-                $footer = "<p>Quedan <span class=\"text-danger\">$daysTillBeDone</span> para terminar la tarea</p>";
+                $footer = "<p>Quedan <span class=\"text-danger\">$daysTillBeDone</span> día(s) para terminar la tarea</p>";
             } else {
-                $footer = "<p>Quedan <span class=\"text-info\">$daysTillBeDone</span> para terminar la tarea</p>";
+                $footer = "<p>Quedan <span class=\"text-info\">$daysTillBeDone</span> día(s) para terminar la tarea</p>";
             }
         } else {
             $footer = "<p class=\"text-bg-success\">¡Tarea completada!</p>";
         }
 
-        //TODO crear un botón que cierre la tarea o elimine la planta
-        // IDEA: que el botón sea un summit que lleve a terminar/abrir la tarea o eliminar la planta. hacer
+        $openOrCloseTaskBtn = $this->taskCompleted ? "Abrir" : "Terminar";
         
         return "<div class=\"col-12 col-md-6 col-lg-2\">
-            <div class=\"card\">
+            <div class=\"card card-fixed\">
                 ". parent::__tostring() ."
                 <div class=\"card-footer\">
-                     $footer 
+                    $footer
+                    <button href=\"plants.php\" class=\"btn btn-sm btn-danger\" style=\"max-height: 50px\" data-bs-toggle=\"modal\" data-bs-target=\"#{$this->id}\">
+                        Borrar Planta
+                    </button>
+                    <form method=\"post\" action=\"plants.php\" style=\"display: inline;\">
+                        <input href=\"plants.php\" type=\"hidden\" name=\"plantIdTask\" value=\"{$this->id}\">
+                        <input value=\"$openOrCloseTaskBtn tarea\" type=\"submit\" name=\"completeOrOpenTask\" class=\"btn btn-sm btn-success mt-1\" style=\"max-height: 50px\">
+                    </form>
                 </div>
             </div>
-        </div>";
+        </div>
+        
+        <div class=\"modal fade\" id=\"{$this->id}\" tabindex=\"-1\" aria-hidden=\"true\">
+        <div class=\"modal-dialog\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h5 class=\"modal-title\">¿Seguro que quieres borrar esta planta?</h5>
+                    <button class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Cerrar\"></button>
+                </div>
+                <div class=\"modal-body\">
+                    <p class=\"text-muted\">Perderás tu planta para siempre.</p>
+                </div>
+                <div class=\"modal-footer\">
+                    <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">
+                        Cancelar
+                    </button>
+                    <form method=\"post\" action=\"plants.php\" style=\"display: inline;\">
+                        <input type=\"hidden\" name=\"plantIdDelete\" value=\"{$this->id}\">
+                        <input value=\"Borrar Planta\" type=\"submit\" name=\"delete\" class=\"btn btn-danger\">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>";
     }
 
+    public function getDeadLine()
+    {
+            return $this->deadLine;
+    }
 
-        /**
-         * Get the value of deadLine
-         */ 
-        public function getDeadLine()
-        {
-                return $this->deadLine;
-        }
 }

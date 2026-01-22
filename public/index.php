@@ -8,7 +8,6 @@
     session_start();
 
     if (!isset($_COOKIE['stay-connected']) && !isset($_SESSION['origin'])){
-        $_SESSION['invalidLogIn'] = true;
         header("Location: logIn.php");
         exit();
     }
@@ -34,7 +33,7 @@
         </div>
         <div class="row py-4">
             <div class="col-12">
-                <h2>Estas son tus plantas</h2>
+                <h2>Estas son tus 5 primeras plantas</h2>
             </div>
         </div>
         <div class="row">

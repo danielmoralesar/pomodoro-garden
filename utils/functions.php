@@ -152,6 +152,6 @@ function convertUnixToDate(int $date): string{
  * @param int $time
  * @return string
  */
-function convertSecondsToDays(int $time): int {
+function convertSecondsToDays(int $time): float {
     return round($time / 86400);
 }

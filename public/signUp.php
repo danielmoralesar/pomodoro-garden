@@ -1,6 +1,14 @@
 <?php
     session_start();
     require_once $_SERVER['DOCUMENT_ROOT'] . "/utils/functions.php";
+
+    if(isset($_COOKIE['stay-connected']) || isset($_SESSION['user'])){
+        $_SESSION['email'] = $_COOKIE['stay-connected'];
+        $_SESSION['origin'] = "login";
+        header("Location: index.php");
+        exit;
+    }
+
     $name = $email = $pass = "";
     $error = false;
     $errorEmail = $errorName = $errorPass = false;

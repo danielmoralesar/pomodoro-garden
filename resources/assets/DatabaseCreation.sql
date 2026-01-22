@@ -30,6 +30,8 @@ SELECT * FROM users where "" = "";
 
 INSERT INTO users (name, email, password) VALUES ("test", "correo@mail.com", "pass");
 
+INSERT INTO PomodoroGardenDB.plants ()
+
 UPDATE users SET name = 'testing', email = 'correo@mail.com' WHERE id=7;
 
 SELECT * FROM users;
