@@ -4,7 +4,7 @@
     $email = "";
     $error = false;
 
-    if(isset($_COOKIE['stay-connected'])){
+    if(isset($_COOKIE['stay-connected']) || isset($_SESSION['user'])){
         $_SESSION['email'] = $_COOKIE['stay-connected'];
         $_SESSION['origin'] = "login";
         header("Location: index.php");
@@ -16,12 +16,8 @@
         require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
         $email = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
         $error = !$email ? true : false;
-        var_dump($error);
-        var_dump($email);
 
         if (!$error){
-            var_dump("primer pase");
-            var_dump(UserDAO::logIn($email, secure($_POST['pass'])));
             if (UserDAO::logIn($email, secure($_POST['pass']))){
                 if (isset($_POST['stay-connected'])){
                     setcookie("stay-connected", $email, time()+60*60*24*30, "/");
@@ -46,10 +42,10 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div>
-        <div>
+    <main class="container">
+        <div class="d-flex justify-content-center align-items-center vh-100">
             <?php include $_SERVER['DOCUMENT_ROOT'] . "/resources/views/components/logInForm.php";?>
         </div>
-    </div>
+    </main>
 </body>
 </html>

@@ -32,10 +32,9 @@
                 <?=printForHtml("Bienvenido a tu jardín, " . $user->getName() . "🧑‍🌾", "h1")?>
             </div>
         </div>
-        <div class="row">
+        <div class="row py-4">
             <div class="col-12">
                 <h2>Estas son las plantas en tu jardín</h2>
-                
             </div>
         </div>
         <div class="row">
