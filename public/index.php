@@ -13,7 +13,7 @@
         exit();
     }
 
-    $user = UserDAO::select($_COOKIE['stay-connected'], "email");
+    $user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,12 +34,25 @@
         </div>
         <div class="row py-4">
             <div class="col-12">
-                <h2>Estas son las plantas en tu jardín</h2>
+                <h2>Estas son tus plantas</h2>
             </div>
         </div>
         <div class="row">
-            <?php 
-                // TODO mostrar las 5 últimas plantas junto con una card de crear una.
+            <div class="col-12 col-md-6 col-lg-2">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        <h5 class="card-title"><a class="btn btn-outline-success" href="plants.php">Crea una tarea</a></h5>
+                    </div>
+                </div>
+            </div>
+            <?php
+                $plants = HarvestPlantDAO::selectAll();
+                if (count($plants) > 0){
+                    $length = count($plants) < 5 ? count($plants) : 5;
+                    for ($i=0; $i < $length; $i++) { 
+                        echo $plants[$i];
+                    }
+                }
             ?>
         </div>
     </main>

@@ -53,7 +53,7 @@ final class HarvestPlant extends Plant{
         if (!$this->taskCompleted){
             $daysTillBeDone = convertSecondsToDays($this->deadLine - time());
             if ($daysTillBeDone < 5){
-                $footer = "<p>Quedan <span class=\"text-warning-emphasis\">$daysTillBeDone</span> para terminar la tarea</p>";
+                $footer = "<p>Quedan <span class=\"text-warning\">$daysTillBeDone</span> para terminar la tarea</p>";
             } else if ($daysTillBeDone < 1){
                 $footer = "<p>Quedan <span class=\"text-danger\">$daysTillBeDone</span> para terminar la tarea</p>";
             } else {
@@ -64,9 +64,9 @@ final class HarvestPlant extends Plant{
         }
 
         //TODO crear un botón que cierre la tarea o elimine la planta
-        // IDEA: que el botón sea un summit que lleve a terminar/abrir la tarea o eliminar la planta. Pidiendo confirmación antes.
+        // IDEA: que el botón sea un summit que lleve a terminar/abrir la tarea o eliminar la planta. hacer
         
-        return "<div class=\"col-12 col-md-6 col-lg-4\">
+        return "<div class=\"col-12 col-md-6 col-lg-2\">
             <div class=\"card\">
                 ". parent::__tostring() ."
                 <div class=\"card-footer\">

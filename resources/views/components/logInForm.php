@@ -1,10 +1,4 @@
 <div class="card p-4">
-    <div class="col-12 <?= $error?'':'d-none'?>">
-        <p>Hay un error en tu email o contraseña</p>
-    </div>
-    <div class="col-12 <?=isset($_SESSION['accJustCreated'])?'':'d-none'?>">
-        <p>¡Haz creado tu cuenta con éxito!</p>
-    </div>
     <form action="<?= $_SERVER['PHP_SELF']?>" method="post">
         <div class="mb-3">
             <label for="email" class="form-label">Tu email</label>
@@ -18,6 +12,14 @@
             <input type="checkbox" id="stay-connected" class="form-check-input" name="stay-connected">
             <label for="stay-connected" class="form-checkbox-label">Quiero seguir conectado</label>
         </div>
+        <?php
+            echo $error ? printForHtml("Hay un error en tu contraseña, email, o quizá no tengas cuenta", "div", "class", "text-danger mb-3") : "";
+
+            if (isset(($_SESSION['accJustCreated']))){
+                echo printForHtml("¡Cuenta creada con éxito!", "div", "class", "text-success mb-3");
+                unset($_SESSION['accJustCreated']);
+            }
+        ?>
         <div class="mb-3">
             <input type="submit" class="form-control btn-outline-light" value="Iniciar sesión">
         </div>

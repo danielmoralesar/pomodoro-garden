@@ -13,7 +13,9 @@
         exit();
     }
 
-    $user = UserDAO::select($_COOKIE['stay-connected'], "email");
+
+    //ESTO NO ES NECESARIO
+    $user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -72,7 +72,7 @@ class HarvestPlantDAO{
 
 
     public static function selectAll(): ?array{
-        $plants = null;
+        $plants = [];
         $conn = CoreDB::getConn();
         $query = "SELECT * FROM plants";
         $prSt = $conn->prepare($query);

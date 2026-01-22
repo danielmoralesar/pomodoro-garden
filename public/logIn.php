@@ -20,7 +20,7 @@
         if (!$error){
             if (UserDAO::logIn($email, secure($_POST['pass']))){
                 if (isset($_POST['stay-connected'])){
-                    setcookie("stay-connected", $email, time()+60*60*24*30, "/");
+                    setcookie('stay-connected', $email, time()+60*60*24*30, "/");
                 }
                 $_SESSION['user'] = UserDAO::select($email, "email");
                 $_SESSION['origin'] = "login";
