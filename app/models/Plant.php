@@ -94,22 +94,15 @@ abstract class Plant{
 
     public function getPlantStateAsString()
     {
-            return $this->plantState->value;
+        return $this->plantState->value;
     }
 
-    /**
-     * Get the value of id
-     */ 
     public function getId()
     {
-            return $this->id;
+        return $this->id;
     }
 
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */ 
+
     public function setId($id)
     {
         $this->id = $id;
@@ -117,35 +110,26 @@ abstract class Plant{
         return $this;
     }
 
-        /**
-         * Get the value of description
-         */ 
-        public function getDescription()
-        {
-                return $this->description;
-        }
+ 
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-        /**
-         * Get the value of plantPic
-         */ 
-        public function getPlantPic()
-        {
-                return $this->plantPic;
-        }
 
-        /**
-         * Get the value of plantedDay
-         */ 
-        public function getPlantedDay()
-        {
-                return $this->plantedDay;
-        }
+    public function getPlantPic()
+    {
+        return $this->plantPic;
+    }
 
-        /**
-         * Get the value of previousState
-         */ 
-        public function getPreviousStateAsString()
-        {
-                return $this->previousState->value;
-        }
+ 
+    public function getPlantedDay()
+    {
+        return $this->plantedDay;
+    }
+
+    public function getPreviousStateAsString()
+    {
+        return $this->previousState->value;
+    }
 }

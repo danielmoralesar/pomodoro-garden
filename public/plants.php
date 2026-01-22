@@ -66,6 +66,12 @@
                 <button class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar" type="button"></button>
             </div>
         <?php endif ?>
+        <?php if(isset($newPlant)) :?>
+            <div class="alert alert-success mt-4 alert-dismissible fade show" role="alert">
+                <h3>La planta se ha creado con éxito</h3>
+                <button class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar" type="button"></button>
+            </div>
+        <?php endif ?>
         <div class="row mt-3">
             <h2>Estas son todas las plantas en el jardín:</h2>
         </div>

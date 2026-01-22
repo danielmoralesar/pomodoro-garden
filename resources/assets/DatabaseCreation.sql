@@ -22,21 +22,6 @@ CREATE TABLE IF NOT EXISTS plants(
     health_points int NOT NULL
 );
 
-DELETE FROM users;
-DELETE FROM PomodoroGardenDB.users WHERE id=10;
-DELETE FROM PomodoroGardenDB.plants;
+INSERT INTO PomodoroGardenDB.users (name, email, password) VALUES ("test", "correo@mail.com", "pass");
 
-SELECT * FROM users where "" = "";
-
-INSERT INTO users (name, email, password) VALUES ("test", "correo@mail.com", "pass");
-
-INSERT INTO PomodoroGardenDB.plants ()
-
-UPDATE users SET name = 'testing', email = 'correo@mail.com' WHERE id=7;
-
-SELECT * FROM users;
-DELETE FROM PomodoroGardenDB.plants;
-
-
-DROP TABLE PomodoroGardenDB.plants;
-DROP DATABASE PomodoroGardenDB;
+INSERT INTO plants (title, description, plant_pic, deadline, planted_day, plant_state, previous_state, task_completed, health_points) VALUES ("Test", "test", "/resources/assets/silencePrincess.jpg", 1, 2, "seed", "initial", false, 100);
