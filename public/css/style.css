@@ -1,9 +1,8 @@
 body {
     background-color: #e5e5f7;
-    opacity: 0.8;
-    background-image: radial-gradient(#BC6C25 0.5px, #fefae069 0.5px);
-    background-size: 10px 10px;
-    font-family: sans-serif;
+    background-image:  linear-gradient(#f7c445 2px, transparent 2px), linear-gradient(90deg, #f7c445 2px, transparent 2px), linear-gradient(#f7c445 1px, transparent 1px), linear-gradient(90deg, #f7c445 1px, #e5e5f7 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
 
 .plant-card-img {
