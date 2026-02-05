@@ -2,6 +2,6 @@
 
 class CoreDB{
     public static function getConn(): mysqli {
-        return new mysqli("127.0.0.1", "root", "Sandia4you", "PomodoroGardenDB");
+        return new mysqli($_ENV['HOSTNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD'], $_ENV['DB_NAME']);
     }
 }

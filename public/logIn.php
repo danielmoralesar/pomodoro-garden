@@ -16,7 +16,7 @@
         require_once $_SERVER['DOCUMENT_ROOT'] . "/app/repositories/UserDAO.php";
         $email = filter_var(secure($_POST['email']), FILTER_VALIDATE_EMAIL);
         $error = !$email ? true : false;
-
+ 
         if (!$error){
             if (UserDAO::logIn($email, $_POST['pass'])){
                 if (isset($_POST['stay-connected'])){

@@ -1,0 +1,45 @@
+services:
+  pomodoro-garden:
+    build:
+      dockerfile_inline:
+        FROM php:8.2-apache
+
+        COPY . /var/www/html
+
+        RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+        WORKDIR /var/www/html
+    container_name: pomodoro-garden
+    networks:
+      - pomodoro-network
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      - HOSTNAME=mysql
+      - USERNAME=mysql
+      - PASSWORD=Sandia4you
+      - DB_NAME=PomodoroGardenDB
+  
+  mysql:
+    image: mysql:8.1
+    container_name: mysql
+    networks:
+      - pomodoro-network
+    volumes:
+      - db-pomodoro:/var/lib/mysql
+      - /mnt/host/c/Users/Dany/Desktop/repositorios/projects/to-do-garden/resources/assets/DatabaseCreation.sql:/docker-entrypoint-initdb.d/DatabaseCreation.sql
+    restart: always
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=Sandia4you
+      - MYSQL_DATABASE=PomodoroGardenDB
+    
+networks:
+  pomodoro-network:
+    name: pomodoro-network
+    driver: bridge
+
+volumes:
+  db-pomodoro:
